@@ -1,0 +1,66 @@
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+// Variables
+@import "variables";
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/font-awesome/scss/font-awesome.scss";
+@import "node_modules/bootstrap-daterangepicker/daterangepicker.scss";
+
+html, body {
+  #app {
+    margin: 20px;
+    margin-bottom: 200px;
+    ul.nav {
+      margin-bottom: 10px;
+      li.userInfo a {
+        color: black;
+        background: none;
+        &:hover {
+          background: none;
+          border-color: transparent;
+        }
+      }
+    }
+    #routerView {
+      margin-top: 10px;
+      #mealList {
+        #search {
+          div:last-child {
+            padding-left: 0;
+          }
+          label {
+            white-space: nowrap;
+            display: block;
+          }
+          input {
+            -webkit-transform: translate(0);
+            overflow: hidden;
+          }
+        }
+        table {
+          tr.meal {
+            background-color: rgba(0, 128, 0, 0.6);
+          }
+          tr.exceededCalories {
+            background-color: rgba(255, 0, 0, 0.62);
+            color: white;
+          }
+
+        }
+      }
+      #caloriesSettings {
+        table tr td {
+          padding: 2px;
+        }
+      }
+    }
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+    {
+      opacity: 0
+    }
+  }
+}
