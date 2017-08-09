@@ -13,8 +13,8 @@ class RolesSeeder extends Seeder
                 'name' => 'User',
                 'slug' => 'user',
                 'permissions' => [
-                    Role::ACCESS_MEALS => true,
-                    Role::CRUD_OWN_MEALS => true,
+                    Role::ACCESS_worklogS => true,
+                    Role::CRUD_OWN_worklogS => true,
                     Role::ACCESS_USER_SETTINGS => true,
                     Role::CRUD_OWN_USER_SETTINGS => true
                 ]
@@ -39,7 +39,7 @@ class RolesSeeder extends Seeder
                 'name' => 'Admin',
                 'slug' => 'admin',
                 'permissions' => [
-                    Role::CRUD_ALL_MEALS => true,
+                    Role::CRUD_ALL_worklogS => true,
                     Role::CRUD_ALL_USER_SETTINGS => true,
                 ]
             ]

@@ -1,12 +1,12 @@
 <template>
     <div id="app">
-        <h1>Input Of Calories</h1>
+        <h1>Input Of Worklogs</h1>
         <ul class="nav nav-tabs">
             <li v-if="!loggedIn">
                 <router-link to="/dashboard">Dashboard</router-link>
             </li>
-            <li v-if="loggedIn && acl.access_meals">
-                <router-link to="/list-of-meals">List of Meals</router-link>
+            <li v-if="loggedIn && acl.access_worklogs">
+                <router-link to="/list-of-worklogs">List of worklogs</router-link>
             </li>
             <li v-if="loggedIn && acl.access_users">
                 <router-link to="/users">Users</router-link>

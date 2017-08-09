@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class UsersCaloriesSettings
+ * Class UsersWorklogsSettings
  *
  * @package App\Models
  * @version July 20, 2017, 8:54 pm UTC
@@ -16,17 +16,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $value
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersCaloriesSettings whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersCaloriesSettings whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersCaloriesSettings whereSettingId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersCaloriesSettings whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersCaloriesSettings whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersCaloriesSettings whereValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersWorklogsSettings whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersWorklogsSettings whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersWorklogsSettings whereSettingId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersWorklogsSettings whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersWorklogsSettings whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UsersWorklogsSettings whereValue($value)
  * @mixin \Eloquent
  */
-class UsersCaloriesSettings extends Model
+class UsersWorklogsSettings extends Model
 {
-    public $table = 'users_calories_settings';
+    public $table = 'users_worklogs_settings';
 
     protected $dates = [];
 

@@ -1,10 +1,10 @@
 <?php
 use Illuminate\Database\Seeder;
 
-class MealsSeeder extends Seeder
+class worklogsSeeder extends Seeder
 {
 
-    public static $mealList = [
+    public static $worklogList = [
         'Asparagus',
         'Apples',
         'Bacon',
@@ -29,11 +29,11 @@ class MealsSeeder extends Seeder
 
     public function run()
     {
-        $this->createRandomMeals();
+        $this->createRandomworklogs();
     }
 
-    private function createRandomMeals()
+    private function createRandomworklogs()
     {
-        factory(\App\Models\Meal::class, 100)->create(['user_id'=>UsersSeeder::$regularUser->id]);
+        factory(\App\Models\worklog::class, 100)->create(['user_id'=>UsersSeeder::$regularUser->id]);
     }
 }

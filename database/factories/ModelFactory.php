@@ -20,11 +20,11 @@ $factory->define(\App\Models\User::class, function (Faker\Generator $faker) {
         'password' => '123456'
     ];
 });
-$factory->define(\App\Models\Meal::class, function (Faker\Generator $faker) {
+$factory->define(\App\Models\worklog::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->randomElement(MealsSeeder::$mealList),
+        'name' => $faker->randomElement(worklogsSeeder::$worklogList),
         'time' => $faker->dateTimeBetween('-2 months'),
-        'calories' => $faker->numberBetween(125, 500),
+        'worklogs' => $faker->numberBetween(125, 500),
         'user_id' => $faker->randomDigit
     ];
 });

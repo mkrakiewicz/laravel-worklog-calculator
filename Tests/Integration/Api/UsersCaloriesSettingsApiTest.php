@@ -7,11 +7,11 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
-use Tests\Traits\MakeUsersCaloriesSettingsTrait;
+use Tests\Traits\MakeUsersWorklogsSettingsTrait;
 
-class UsersCaloriesSettingsApiTest extends TestCase
+class UsersWorklogsSettingsApiTest extends TestCase
 {
-    use MakeUsersCaloriesSettingsTrait, ApiTestTrait, WithoutMiddleware, DatabaseMigrations;
+    use MakeUsersWorklogsSettingsTrait, ApiTestTrait, WithoutMiddleware, DatabaseMigrations;
 
     protected function setUp()
     {
@@ -20,48 +20,48 @@ class UsersCaloriesSettingsApiTest extends TestCase
     /**
      * @test
      */
-    public function testCreateUsersCaloriesSettings()
+    public function testCreateUsersWorklogsSettings()
     {
-        $usersCaloriesSettings = $this->fakeUsersCaloriesSettingsData();
-        $this->json('POST', '/api/usersCaloriesSettings', $usersCaloriesSettings);
+        $usersWorklogsSettings = $this->fakeUsersWorklogsSettingsData();
+        $this->json('POST', '/api/usersWorklogsSettings', $usersWorklogsSettings);
 
-        $this->assertApiResponse($usersCaloriesSettings);
+        $this->assertApiResponse($usersWorklogsSettings);
     }
 
     /**
      * @test
      */
-    public function testReadUsersCaloriesSettings()
+    public function testReadUsersWorklogsSettings()
     {
-        $usersCaloriesSettings = $this->makeUsersCaloriesSettings();
-        $this->json('GET', '/api/usersCaloriesSettings/'.$usersCaloriesSettings->id);
+        $usersWorklogsSettings = $this->makeUsersWorklogsSettings();
+        $this->json('GET', '/api/usersWorklogsSettings/'.$usersWorklogsSettings->id);
 
-        $this->assertApiResponse($usersCaloriesSettings->toArray());
+        $this->assertApiResponse($usersWorklogsSettings->toArray());
     }
 
     /**
      * @test
      */
-    public function testUpdateUsersCaloriesSettings()
+    public function testUpdateUsersWorklogsSettings()
     {
-        $usersCaloriesSettings = $this->makeUsersCaloriesSettings();
-        $editedUsersCaloriesSettings = $this->fakeUsersCaloriesSettingsData();
+        $usersWorklogsSettings = $this->makeUsersWorklogsSettings();
+        $editedUsersWorklogsSettings = $this->fakeUsersWorklogsSettingsData();
 
-        $this->json('PUT', '/api/usersCaloriesSettings/'.$usersCaloriesSettings->id, $editedUsersCaloriesSettings);
+        $this->json('PUT', '/api/usersWorklogsSettings/'.$usersWorklogsSettings->id, $editedUsersWorklogsSettings);
 
-        $this->assertApiResponse($editedUsersCaloriesSettings);
+        $this->assertApiResponse($editedUsersWorklogsSettings);
     }
 
     /**
      * @test
      */
-    public function testDeleteUsersCaloriesSettings()
+    public function testDeleteUsersWorklogsSettings()
     {
-        $usersCaloriesSettings = $this->makeUsersCaloriesSettings();
-        $this->json('DELETE', '/api/usersCaloriesSettings/'.$usersCaloriesSettings->id);
+        $usersWorklogsSettings = $this->makeUsersWorklogsSettings();
+        $this->json('DELETE', '/api/usersWorklogsSettings/'.$usersWorklogsSettings->id);
 
         $this->assertApiSuccess();
-        $this->json('GET', '/api/usersCaloriesSettings/'.$usersCaloriesSettings->id);
+        $this->json('GET', '/api/usersWorklogsSettings/'.$usersWorklogsSettings->id);
 
         $this->assertResponseStatus(404);
     }

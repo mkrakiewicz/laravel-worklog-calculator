@@ -3,29 +3,29 @@
 namespace Tests\Unit\Api;
 
 
-use App\Http\Controllers\API\MealAPIController;
-use App\Http\Requests\API\CreateMealAPIRequest;
-use App\Http\Requests\API\UpdateMealAPIRequest;
-use App\Models\Meal;
+use App\Http\Controllers\API\worklogAPIController;
+use App\Http\Requests\API\CreateworklogAPIRequest;
+use App\Http\Requests\API\UpdateworklogAPIRequest;
+use App\Models\worklog;
 use App\Models\Role;
 use App\Models\User;
-use App\Repositories\MealRepository;
+use App\Repositories\worklogRepository;
 use Illuminate\Auth\AuthManager;
 use Mockery;
 use Tests\TestCase;
 
-class MealApiTest extends TestCase
+class worklogApiTest extends TestCase
 {
     private $currentUserId = 5;
-    private $updatedMealId = 9;
+    private $updatedworklogId = 9;
 
     /**
      * @dataProvider createTestCases
      */
     public function testStore($hasAllCrudAccess, $requestUserId, $expectedUserId, $changedUserId)
     {
-        $controller = new MealAPIController(
-            $this->getCreateMealRepositoryMock(['user_id' => $expectedUserId]),
+        $controller = new worklogAPIController(
+            $this->getCreateworklogRepositoryMock(['user_id' => $expectedUserId]),
             $this->getAuthManagerMock($hasAllCrudAccess)
         );
         $createRequest = $this->getCreateRequestMock(['user_id' => $expectedUserId], $requestUserId, $expectedUserId,
@@ -38,13 +38,13 @@ class MealApiTest extends TestCase
      */
     public function testUpdate($hasAllCrudAccess, $requestUserId, $expectedUserId, $changedUserId,$findWithoutFailResult)
     {
-        $controller = new MealAPIController(
-            $this->getUpdateMealRepositoryMock(['user_id' => $expectedUserId],$findWithoutFailResult),
+        $controller = new worklogAPIController(
+            $this->getUpdateworklogRepositoryMock(['user_id' => $expectedUserId],$findWithoutFailResult),
             $this->getAuthManagerMock($hasAllCrudAccess)
         );
         $createRequest = $this->getUpdateRequestMock(['user_id' => $expectedUserId], $requestUserId, $expectedUserId,
             $changedUserId);
-        $controller->update($this->updatedMealId, $createRequest);
+        $controller->update($this->updatedworklogId, $createRequest);
     }
 
     public function createTestCases()
@@ -115,20 +115,20 @@ class MealApiTest extends TestCase
         ];
     }
 
-    private function getCreateMealRepositoryMock($expectedCreateArray)
+    private function getCreateworklogRepositoryMock($expectedCreateArray)
     {
-        $mock = Mockery::mock(MealRepository::class);
-        $mock->shouldReceive('create')->with($expectedCreateArray)->andReturn($this->getMealMock());
+        $mock = Mockery::mock(worklogRepository::class);
+        $mock->shouldReceive('create')->with($expectedCreateArray)->andReturn($this->getworklogMock());
         return $mock;
     }
 
-    private function getUpdateMealRepositoryMock($expectedUpdateArray,$findWithoutFailResult=false)
+    private function getUpdateworklogRepositoryMock($expectedUpdateArray,$findWithoutFailResult=false)
     {
-        $mock = Mockery::mock(MealRepository::class);
+        $mock = Mockery::mock(worklogRepository::class);
         $mock->shouldReceive('findWithoutFail')->andReturn($findWithoutFailResult);
         if ($expectedUpdateArray)
         {
-            $mock->shouldReceive('update')->with($expectedUpdateArray,$this->updatedMealId)->andReturn($this->getMealMock());
+            $mock->shouldReceive('update')->with($expectedUpdateArray,$this->updatedworklogId)->andReturn($this->getworklogMock());
         }
         return $mock;
     }
@@ -143,7 +143,7 @@ class MealApiTest extends TestCase
 
     private function getCreateRequestMock($expectedAllArray, $requestUserId, $expectedUserId, $changedUserId)
     {
-        $mock = Mockery::mock(CreateMealAPIRequest::class);
+        $mock = Mockery::mock(CreateworklogAPIRequest::class);
         $mock->shouldReceive('offsetExists')->with('user_id')->andReturn(true);
         $mock->shouldReceive('offsetGet')->with('user_id')->andReturn($requestUserId);
         if ($changedUserId) {
@@ -156,7 +156,7 @@ class MealApiTest extends TestCase
 
     private function getUpdateRequestMock($expectedAllArray, $requestUserId, $expectedUserId, $changedUserId)
     {
-        $mock = Mockery::mock(UpdateMealAPIRequest::class);
+        $mock = Mockery::mock(UpdateworklogAPIRequest::class);
         $mock->shouldReceive('offsetExists')->with('user_id')->andReturn(true);
         $mock->shouldReceive('offsetGet')->with('user_id')->andReturn($requestUserId);
         if ($changedUserId) {
@@ -170,13 +170,13 @@ class MealApiTest extends TestCase
     private function getUserMock($hasAllCrudAccess)
     {
         $mock = Mockery::mock(User::class);
-        $mock->shouldReceive('hasAccess')->with([Role::CRUD_ALL_MEALS])->andReturn($hasAllCrudAccess);
+        $mock->shouldReceive('hasAccess')->with([Role::CRUD_ALL_worklogS])->andReturn($hasAllCrudAccess);
         return $mock;
     }
 
-    private function getMealMock()
+    private function getworklogMock()
     {
-        $mock = Mockery::mock(Meal::class);
+        $mock = Mockery::mock(worklog::class);
         $mock->shouldReceive('toArray')->andReturn([]);
         return $mock;
     }

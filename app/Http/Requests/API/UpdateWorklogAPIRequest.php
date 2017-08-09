@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\UsersCaloriesSettings;
+use App\Models\worklog;
 
 
-class UpdateUsersCaloriesSettingsAPIRequest extends APIRequest
+class UpdateworklogAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,6 @@ class UpdateUsersCaloriesSettingsAPIRequest extends APIRequest
      */
     public function rules()
     {
-        return UsersCaloriesSettings::$rules;
+        return worklog::$rules;
     }
 }

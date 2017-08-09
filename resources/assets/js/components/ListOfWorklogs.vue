@@ -1,8 +1,8 @@
 <template>
-    <div id="mealList">
-        <h2>List of meals</h2>
-        <p>Here you can add a meal, or view a list of your meals below.</p>
-        <a class="btn btn-primary btn-lg pull-right" @click="showAddMealModal"><i class="fa fa-plus"></i> Add</a>
+    <div id="worklogList">
+        <h2>List of worklogs</h2>
+        <p>Here you can add a worklog, or view a list of your worklogs below.</p>
+        <a class="btn btn-primary btn-lg pull-right" @click="showAddworklogModal"><i class="fa fa-plus"></i> Add</a>
         <div id="search">
             <div class="row">
                 <div class="col-md-4">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-md-1">
                     <label>&nbsp;</label>
-                    <input @click="getMeals()" class="btn btn-primary" type="button" value="Filter">
+                    <input @click="getworklogs()" class="btn btn-primary" type="button" value="Filter">
                 </div>
                 <div class="col-md-1">
                     <label>&nbsp;</label>
@@ -46,36 +46,36 @@
         <table class="table table-borderless m-b-none">
             <thead>
             <tr>
-                <th v-if="acl.crud_all_meals">User e-mail</th>
-                <th>Meal</th>
-                <th>Calories (kcal)</th>
+                <th v-if="acl.crud_all_worklogs">User e-mail</th>
+                <th>worklog</th>
+                <th>Worklogs (kcal)</th>
                 <th>Time</th>
                 <th></th>
             </tr>
             </thead>
 
             <tbody>
-            <tr v-for="meal in meals" v-bind:class="{exceededCalories : meal.exceeded_calories}" class="meal">
-                <td v-if="acl.crud_all_meals">
-                    {{ meal.user.email }}
+            <tr v-for="worklog in worklogs" v-bind:class="{exceededWorklogs : worklog.exceeded_worklogs}" class="worklog">
+                <td v-if="acl.crud_all_worklogs">
+                    {{ worklog.user.email }}
                 </td>
                 <!-- Client Name -->
                 <td style="vertical-align: middle;">
-                    {{ meal.name }}
+                    {{ worklog.name }}
                 </td>
                 <td style="vertical-align: middle;">
-                    {{ meal.calories }}
+                    {{ worklog.worklogs }}
                 </td>
                 <td style="vertical-align: middle;">
-                    {{ meal.time }}
+                    {{ worklog.time }}
                 </td>
                 <!-- Revoke Button -->
                 <td style="vertical-align: middle;">
                     <div class="btn-group">
-                        <a @click="showEditMealModal(meal)"
+                        <a @click="showEditworklogModal(worklog)"
                            class="btn btn-default"><i
                                 class="fa fa-edit"></i> Edit</a>
-                        <a @click="showDeleteMealModal(meal)"
+                        <a @click="showDeleteworklogModal(worklog)"
                            class="btn btn-danger"><i
                                 class="fa fa-remove"></i> Delete</a>
                     </div>
@@ -84,15 +84,15 @@
             </tbody>
         </table>
         <div id="pagination">
-            <button v-if="pagination.offsetFactor > 0" @click="getMeals(-1)" type="button" class="btn btn-primary">
+            <button v-if="pagination.offsetFactor > 0" @click="getworklogs(-1)" type="button" class="btn btn-primary">
                 <i class="fa fa-arrow-left"></i> Previous page
             </button>
-            <button v-if="meals.length > 0" @click="getMeals(1)" type="button" class="btn btn-primary pull-right">
+            <button v-if="worklogs.length > 0" @click="getworklogs(1)" type="button" class="btn btn-primary pull-right">
                 Next page <i class="fa fa-arrow-right"></i></button>
         </div>
 
-        <bootstrap-modal id="modal-edit-meal">
-            <div slot="header"><span v-if="modal.meal.id">Edit</span><span v-else>Add</span> meal</div>
+        <bootstrap-modal id="modal-edit-worklog">
+            <div slot="header"><span v-if="modal.worklog.id">Edit</span><span v-else>Add</span> worklog</div>
             <div slot="content">
                 <form class="form-horizontal" role="form">
 
@@ -100,7 +100,7 @@
                         <label :for="fieldIndex" class="col-md-3 control-label">{{fieldName}}</label>
                         <div class="col-md-7">
                             <input type="text"
-                                   class="form-control" v-model="modal.meal[fieldIndex]"
+                                   class="form-control" v-model="modal.worklog[fieldIndex]"
                                    :placeholder="fieldIndex == 'time' ? '2017-06-23 12:45:00' :''"
                                    :name="fieldIndex" required>
                                     <span v-if="modal.errors[fieldIndex]" class="help-block">
@@ -108,7 +108,7 @@
                                     </span>
                         </div>
                     </div>
-                    <div v-if="acl.crud_all_meals" class="form-group">
+                    <div v-if="acl.crud_all_worklogs" class="form-group">
                         <label class="col-md-3 control-label">User</label>
                         <div class="col-md-7">
 
@@ -130,7 +130,7 @@
                 </form>
             </div>
             <div slot="footer">
-                <button @click="handleEditMealModalSave" type="button" class="btn btn-primary">
+                <button @click="handleEditworklogModalSave" type="button" class="btn btn-primary">
                     Save
                 </button>
                 <button id="editModalCloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close
@@ -140,13 +140,13 @@
         </bootstrap-modal>
 
 
-        <bootstrap-modal id="modal-delete-meal">
-            <div slot="header">Delete meal</div>
+        <bootstrap-modal id="modal-delete-worklog">
+            <div slot="header">Delete worklog</div>
             <div slot="content">
                 <p>Are you sure?</p>
             </div>
             <div slot="footer">
-                <button @click="handleMealModalDelete" type="button" class="btn btn-danger" data-dismiss="modal">
+                <button @click="handleworklogModalDelete" type="button" class="btn btn-danger" data-dismiss="modal">
                     Delete
                 </button>
                 <button id="deleteModalCloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close
@@ -161,12 +161,12 @@
 
 <script type="text/ecmascript-6">
     import auth from '../auth.js';
-    import mealApi from '../meal-api.js';
+    import worklogApi from '../worklog-api.js';
     import daterangepicker from 'bootstrap-daterangepicker';
     import flash from '../flash';
 
-    var defaultMealData = {
-        name: '', calories: '', time: '', user: {id: '', email: ''}
+    var defaultworklogData = {
+        name: '', worklogs: '', time: '', user: {id: '', email: ''}
     };
 
     var defaultSearchData = {
@@ -177,12 +177,12 @@
     export default {
         data() {
             return {
-                meals: [],
+                worklogs: [],
                 modal: {
-                    meal: defaultMealData,
+                    worklog: defaultworklogData,
                     fields: {
                         name: 'Name',
-                        calories: 'Calories (kcal)',
+                        worklogs: 'Worklogs (kcal)',
                         time: 'Time',
                     },
                     errors: []
@@ -208,7 +208,7 @@
             prepareComponent() {
 
 
-                this.getMeals();
+                this.getworklogs();
                 this.getUsers()
                 this.acl = auth.acl();
                 var that = this;
@@ -241,7 +241,7 @@
                 });
 
 
-                var $modalTimeInput = $('#modal-edit-meal').find('input[name=time]');
+                var $modalTimeInput = $('#modal-edit-worklog').find('input[name=time]');
                 $modalTimeInput.daterangepicker({
                     "autoApply": true,
                     "timePicker": true,
@@ -253,12 +253,12 @@
                 });
 
                 $modalTimeInput.on('apply.daterangepicker', function (ev, picker) {
-                    that.modal.meal.time = picker.startDate.format('YYYY-MM-DD HH:mm:ss');
+                    that.modal.worklog.time = picker.startDate.format('YYYY-MM-DD HH:mm:ss');
                 });
             },
 
 
-            getMeals(offsetIncrement) {
+            getworklogs(offsetIncrement) {
                 var df = _.get(this, 'search.date.from', false);
                 var dt = _.get(this, 'search.date.to', false);
                 var tf = _.get(this, 'search.time.from', false);
@@ -269,52 +269,52 @@
                 } else {
                     that.pagination.offsetFactor = 0;
                 }
-                mealApi.getMeals(df, dt, tf, tt, that.pagination.limit, that.pagination.offsetFactor * that.pagination.limit, function (response) {
-                    that.meals = response.data.data;
+                worklogApi.getworklogs(df, dt, tf, tt, that.pagination.limit, that.pagination.offsetFactor * that.pagination.limit, function (response) {
+                    that.worklogs = response.data.data;
                 })
             },
 
-            showAddMealModal()
+            showAddworklogModal()
             {
-                this.modal.meal = defaultMealData;
-                $('#modal-edit-meal').modal('show');
+                this.modal.worklog = defaultworklogData;
+                $('#modal-edit-worklog').modal('show');
             },
             /**
              * Show the form for creating new clients.
              */
-            showEditMealModal(meal) {
+            showEditworklogModal(worklog) {
                 this.modal.errors = [];
-                this.modal.meal = meal;
-                $('#modal-edit-meal').modal('show');
+                this.modal.worklog = worklog;
+                $('#modal-edit-worklog').modal('show');
             },
 
-            showDeleteMealModal(meal) {
-                this.modal.meal = meal;
-                $('#modal-delete-meal').modal('show');
+            showDeleteworklogModal(worklog) {
+                this.modal.worklog = worklog;
+                $('#modal-delete-worklog').modal('show');
             },
-            handleEditMealModalSave() {
+            handleEditworklogModalSave() {
                 var method = 'post';
-                var url = '/api/meals';
-                var id = _.get(this, 'modal.meal.id', "");
+                var url = '/api/worklogs';
+                var id = _.get(this, 'modal.worklog.id', "");
                 if (id != "") {
                     method = 'put';
                     url += "/" + id;
                 }
 
-                var meal = _.get(this, 'modal.meal');
-                meal.user_id = _.get(meal, 'user.id');
-                delete meal['user'];
-                this.$http[method](url, meal)
+                var worklog = _.get(this, 'modal.worklog');
+                worklog.user_id = _.get(worklog, 'user.id');
+                delete worklog['user'];
+                this.$http[method](url, worklog)
                         .then(function (response) {
                             if (_.get(response, 'body.success') == true) {
-                                this.getMeals();
-                                flash.setMessage('Meal saved.');
+                                this.getworklogs();
+                                flash.setMessage('worklog saved.');
                                 $('#editModalCloseButton').click();
-                                this.modal.meal.name = '';
-                                this.modal.meal.calories = '';
-                                this.modal.meal.time = '';
-                                this.modal.meal.user = '';
-                                this.modal.meal.user_id = '';
+                                this.modal.worklog.name = '';
+                                this.modal.worklog.worklogs = '';
+                                this.modal.worklog.time = '';
+                                this.modal.worklog.user = '';
+                                this.modal.worklog.user_id = '';
                                 this.modal.errors = [];
                             }
                         }).catch(function (response) {
@@ -324,19 +324,19 @@
                 });
             },
 
-            handleMealModalDelete() {
-                var id = _.get(this, 'modal.meal.id');
-                this.$http.delete('api/meals/' + id)
+            handleworklogModalDelete() {
+                var id = _.get(this, 'modal.worklog.id');
+                this.$http.delete('api/worklogs/' + id)
                         .then(function (response) {
                             if (_.get(response, 'body.success') == true) {
-                                this.getMeals();
-                                flash.setMessage('Meal deleted.');
+                                this.getworklogs();
+                                flash.setMessage('worklog deleted.');
                                 $('#deleteModalCloseButton').click();
                             }
                         }).catch(function (response) {
                     if (_.get(response, 'body.success') == false) {
                         this.modal.errors = response.body.message;
-                        alert("Problem deleting meals.");
+                        alert("Problem deleting worklogs.");
                     }
                 });
             },
@@ -350,7 +350,7 @@
             },
             selectUser(user)
             {
-                this.modal.meal.user = user;
+                this.modal.worklog.user = user;
                 $('#userDropdown').text(user.email);
             },
             resetSearch () {
@@ -358,7 +358,7 @@
                 this.search.date.to = '';
                 this.search.time.from = '';
                 this.search.time.to = '';
-                this.getMeals();
+                this.getworklogs();
             }
         }
     }

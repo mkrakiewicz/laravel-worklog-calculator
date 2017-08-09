@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
-class MealDateTimeCriteria implements CriteriaInterface
+class worklogDateTimeCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request

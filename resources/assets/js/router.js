@@ -5,8 +5,8 @@ import auth from './auth'
 import Register from './components/auth/Register.vue'
 import Users from './components/Users.vue'
 import Dashboard from './components/Dashboard.vue'
-import CaloriesSettings from './components/CaloriesSettings.vue'
-import ListOfMeals from './components/ListOfMeals.vue'
+import WorklogsSettings from './components/WorklogsSettings.vue'
+import ListOfworklogs from './components/ListOfworklogs.vue'
 
 import Login from './components/auth/Login.vue'
 
@@ -27,8 +27,8 @@ mode: 'hash',
     base: __dirname,
       routes: [
           { path: '/dashboard', component: Dashboard},
-          { path: '/list-of-meals', component: ListOfMeals, beforeEnter: requireAuth },
-          { path: '/settings', component: CaloriesSettings, beforeEnter: requireAuth },
+          { path: '/list-of-worklogs', component: ListOfworklogs, beforeEnter: requireAuth },
+          { path: '/settings', component: WorklogsSettings, beforeEnter: requireAuth },
           { path: '/users', component: Users, beforeEnter: requireAuth },
           { path: '/login', component: Login },
           { path: '/register-success', component: Login },

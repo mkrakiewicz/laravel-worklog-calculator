@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersSeeder::class);
 
         $this->call(SettingsSeeder::class);
-        $this->call(UserCaloriesSettingsSeeder::class);
+        $this->call(UserWorklogsSettingsSeeder::class);
 
-        $this->call(MealsSeeder::class);
+        $this->call(worklogsSeeder::class);
 
     }
 }

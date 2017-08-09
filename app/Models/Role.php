@@ -27,9 +27,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Role extends Model
 {
-    const ACCESS_MEALS = 'access-meals';
-    const CRUD_OWN_MEALS = 'crud-own-meals';
-    const CRUD_ALL_MEALS = 'crud-all-meals';
+    const ACCESS_worklogS = 'access-worklogs';
+    const CRUD_OWN_worklogS = 'crud-own-worklogs';
+    const CRUD_ALL_worklogS = 'crud-all-worklogs';
 
 
     const ACCESS_USER_SETTINGS = 'access-user-settings';

@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\UsersCaloriesSettings;
+use App\Models\UsersWorklogsSettings;
 
 
-class CreateUsersCaloriesSettingsAPIRequest extends APIRequest
+class CreateUsersWorklogsSettingsAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,6 @@ class CreateUsersCaloriesSettingsAPIRequest extends APIRequest
      */
     public function rules()
     {
-        return UsersCaloriesSettings::$rules;
+        return UsersWorklogsSettings::$rules;
     }
 }

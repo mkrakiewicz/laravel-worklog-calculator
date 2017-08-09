@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Models\UsersCaloriesSettings;
+use App\Models\UsersWorklogsSettings;
 use Auth;
 use InfyOm\Generator\Common\BaseRepository;
 
-class UsersCaloriesSettingsRepository extends BaseRepository
+class UsersWorklogsSettingsRepository extends BaseRepository
 {
     /**
      * @var array
@@ -22,22 +22,22 @@ class UsersCaloriesSettingsRepository extends BaseRepository
      **/
     public function model()
     {
-        return UsersCaloriesSettings::class;
+        return UsersWorklogsSettings::class;
     }
 
     public function crossJoinSettingsWithUsers($all = false)
     {
-        $caloriesSettingsTable = 'users_calories_settings';
+        $worklogsSettingsTable = 'users_worklogs_settings';
 
-        $query = UsersCaloriesSettings::query()->
+        $query = UsersWorklogsSettings::query()->
         select([
-            "$caloriesSettingsTable.id", "settings.id as setting_id", "settings.key", "$caloriesSettingsTable.value",
+            "$worklogsSettingsTable.id", "settings.id as setting_id", "settings.key", "$worklogsSettingsTable.value",
             "users.id as user_id", "users.email"
         ])->from("settings")->
         crossJoin("users")->
-        join("$caloriesSettingsTable", function ($join) use ($caloriesSettingsTable) {
-            $join->on("$caloriesSettingsTable.user_id", "=", "users.id")
-                ->on("$caloriesSettingsTable.setting_id", "=", "settings.id");
+        join("$worklogsSettingsTable", function ($join) use ($worklogsSettingsTable) {
+            $join->on("$worklogsSettingsTable.user_id", "=", "users.id")
+                ->on("$worklogsSettingsTable.setting_id", "=", "settings.id");
         }, null, null, "left")->
         orderBy("user_id", "asc");
 

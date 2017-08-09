@@ -1,2 +1,3 @@
-# Write an application for the input of worklog entries
+# Input of worklogs
 
+Application to store input of worklogs

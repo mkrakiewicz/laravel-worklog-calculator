@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMealsTable extends Migration
+class CreateworklogsTable extends Migration
 {
 
     /**
@@ -13,14 +13,14 @@ class CreateMealsTable extends Migration
      */
     public function up()
     {
-        Schema::create('meals', function (Blueprint $table) {
+        Schema::create('worklogs', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('name');
-            $table->integer('calories');
+            $table->integer('worklogs');
             $table->dateTime('time');
             $table->timestamps();
             $table->softDeletes();
@@ -34,6 +34,6 @@ class CreateMealsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('meals');
+        Schema::drop('worklogs');
     }
 }

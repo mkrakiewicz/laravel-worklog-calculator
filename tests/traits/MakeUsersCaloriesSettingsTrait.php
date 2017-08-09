@@ -5,43 +5,43 @@ namespace Tests\Traits;
 
 use App;
 use Faker\Factory as Faker;
-use App\Models\UsersCaloriesSettings;
-use App\Repositories\UsersCaloriesSettingsRepository;
+use App\Models\UsersWorklogsSettings;
+use App\Repositories\UsersWorklogsSettingsRepository;
 
-trait MakeUsersCaloriesSettingsTrait
+trait MakeUsersWorklogsSettingsTrait
 {
     /**
-     * Create fake instance of UsersCaloriesSettings and save it in database
+     * Create fake instance of UsersWorklogsSettings and save it in database
      *
-     * @param array $usersCaloriesSettingsFields
-     * @return UsersCaloriesSettings
+     * @param array $usersWorklogsSettingsFields
+     * @return UsersWorklogsSettings
      */
-    public function makeUsersCaloriesSettings($usersCaloriesSettingsFields = [])
+    public function makeUsersWorklogsSettings($usersWorklogsSettingsFields = [])
     {
-        /** @var UsersCaloriesSettingsRepository $usersCaloriesSettingsRepo */
-        $usersCaloriesSettingsRepo = App::make(UsersCaloriesSettingsRepository::class);
-        $theme = $this->fakeUsersCaloriesSettingsData($usersCaloriesSettingsFields);
-        return $usersCaloriesSettingsRepo->create($theme);
+        /** @var UsersWorklogsSettingsRepository $usersWorklogsSettingsRepo */
+        $usersWorklogsSettingsRepo = App::make(UsersWorklogsSettingsRepository::class);
+        $theme = $this->fakeUsersWorklogsSettingsData($usersWorklogsSettingsFields);
+        return $usersWorklogsSettingsRepo->create($theme);
     }
 
     /**
-     * Get fake instance of UsersCaloriesSettings
+     * Get fake instance of UsersWorklogsSettings
      *
-     * @param array $usersCaloriesSettingsFields
-     * @return UsersCaloriesSettings
+     * @param array $usersWorklogsSettingsFields
+     * @return UsersWorklogsSettings
      */
-    public function fakeUsersCaloriesSettings($usersCaloriesSettingsFields = [])
+    public function fakeUsersWorklogsSettings($usersWorklogsSettingsFields = [])
     {
-        return new UsersCaloriesSettings($this->fakeUsersCaloriesSettingsData($usersCaloriesSettingsFields));
+        return new UsersWorklogsSettings($this->fakeUsersWorklogsSettingsData($usersWorklogsSettingsFields));
     }
 
     /**
-     * Get fake data of UsersCaloriesSettings
+     * Get fake data of UsersWorklogsSettings
      *
      * @param array $postFields
      * @return array
      */
-    public function fakeUsersCaloriesSettingsData($usersCaloriesSettingsFields = [])
+    public function fakeUsersWorklogsSettingsData($usersWorklogsSettingsFields = [])
     {
         $fake = Faker::create();
 
@@ -49,6 +49,6 @@ trait MakeUsersCaloriesSettingsTrait
             'user_id' => $fake->randomDigitNotNull,
             'setting_id' => $fake->randomDigitNotNull,
             'value' => $fake->randomDigitNotNull
-        ], $usersCaloriesSettingsFields);
+        ], $usersWorklogsSettingsFields);
     }
 }

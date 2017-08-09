@@ -40245,10 +40245,10 @@ Vue.use(VueResource);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Users_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Users_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Dashboard_vue__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Dashboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_Dashboard_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_CaloriesSettings_vue__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_CaloriesSettings_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_CaloriesSettings_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_ListOfMeals_vue__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_ListOfMeals_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_ListOfMeals_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_WorklogsSettings_vue__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_WorklogsSettings_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__components_WorklogsSettings_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_ListOfworklogs_vue__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_ListOfworklogs_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_ListOfworklogs_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_auth_Login_vue__ = __webpack_require__(145);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_auth_Login_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_auth_Login_vue__);
 
@@ -40281,8 +40281,8 @@ mode: 'hash',
     base: __dirname,
       routes: [
           { path: '/dashboard', component: __WEBPACK_IMPORTED_MODULE_4__components_Dashboard_vue___default.a},
-          { path: '/list-of-meals', component: __WEBPACK_IMPORTED_MODULE_6__components_ListOfMeals_vue___default.a, beforeEnter: requireAuth },
-          { path: '/settings', component: __WEBPACK_IMPORTED_MODULE_5__components_CaloriesSettings_vue___default.a, beforeEnter: requireAuth },
+          { path: '/list-of-worklogs', component: __WEBPACK_IMPORTED_MODULE_6__components_ListOfworklogs_vue___default.a, beforeEnter: requireAuth },
+          { path: '/settings', component: __WEBPACK_IMPORTED_MODULE_5__components_WorklogsSettings_vue___default.a, beforeEnter: requireAuth },
           { path: '/users', component: __WEBPACK_IMPORTED_MODULE_3__components_Users_vue___default.a, beforeEnter: requireAuth },
           { path: '/login', component: __WEBPACK_IMPORTED_MODULE_7__components_auth_Login_vue___default.a },
           { path: '/register', component: __WEBPACK_IMPORTED_MODULE_2__components_auth_Register_vue___default.a },
@@ -44492,14 +44492,14 @@ if (typeof jQuery === 'undefined') {
 
 
 
-var defaultcaloriesSettingData = {
+var defaultworklogsSettingData = {
     name: '', email: '', password: '', password_confirmation: ''
 };
 /* harmony default export */ exports["default"] = {
     data: function data() {
         return {
-            ownCaloriesSettings: [],
-            caloriesSettings: [],
+            ownWorklogsSettings: [],
+            worklogsSettings: [],
             errors: [],
             acl: {}
         };
@@ -44518,40 +44518,40 @@ var defaultcaloriesSettingData = {
          */
         prepareComponent: function prepareComponent() {
             this.acl = __WEBPACK_IMPORTED_MODULE_0__auth__["a" /* default */].acl();
-            this.getCaloriesSettings();
-            this.getOwnCaloriesSettings();
+            this.getWorklogsSettings();
+            this.getOwnWorklogsSettings();
 
         },
 
 
-        getCaloriesSettings: function getCaloriesSettings() {
-            this.$http.get('/api/users_calories_settings/usersOverview')
+        getWorklogsSettings: function getWorklogsSettings() {
+            this.$http.get('/api/users_worklogs_settings/usersOverview')
                     .then(function (response) {
-                        this.caloriesSettings = response.data.data;
+                        this.worklogsSettings = response.data.data;
                     });
         },
 
-        getOwnCaloriesSettings: function getOwnCaloriesSettings() {
-            this.$http.get('/api/users_calories_settings/own')
+        getOwnWorklogsSettings: function getOwnWorklogsSettings() {
+            this.$http.get('/api/users_worklogs_settings/own')
                     .then(function (response) {
-                        this.ownCaloriesSettings = response.data.data;
+                        this.ownWorklogsSettings = response.data.data;
                     });
         },
 
-        saveCaloriesSetting: function saveCaloriesSetting(caloriesSetting) {
+        saveWorklogsSetting: function saveWorklogsSetting(worklogsSetting) {
             var method = 'post';
-            var url = '/api/users_calories_settings';
-            var id = _.get(caloriesSetting, 'id', "");
-            console.log("ID: " + id + ", caloriesSetting: " + caloriesSetting);
+            var url = '/api/users_worklogs_settings';
+            var id = _.get(worklogsSetting, 'id', "");
+            console.log("ID: " + id + ", worklogsSetting: " + worklogsSetting);
             if (!!id) {
                 method = 'put';
                 url += "/" + id;
             }
 
-            this.$http[method](url, caloriesSetting)
+            this.$http[method](url, worklogsSetting)
                     .then(function (response) {
                         if (_.get(response, 'body.success') == true) {
-                            this.getCaloriesSettings();
+                            this.getWorklogsSettings();
                         }
                     }).catch(function (response) {
                 if (_.get(response, 'body.success') == false) {
@@ -44560,20 +44560,20 @@ var defaultcaloriesSettingData = {
             });
         },
 
-        saveOwnCaloriesSetting: function saveOwnCaloriesSetting(caloriesSetting) {
+        saveOwnWorklogsSetting: function saveOwnWorklogsSetting(worklogsSetting) {
             var method = 'post';
-            var url = '/api/users_calories_settings';
-            var id = _.get(caloriesSetting, 'id', "");
-            console.log("ID: " + id + ", caloriesSetting: " + caloriesSetting);
+            var url = '/api/users_worklogs_settings';
+            var id = _.get(worklogsSetting, 'id', "");
+            console.log("ID: " + id + ", worklogsSetting: " + worklogsSetting);
             if (!!id) {
                 method = 'put';
                 url += "/" + id;
             }
 
-            this.$http[method](url, caloriesSetting)
+            this.$http[method](url, worklogsSetting)
                     .then(function (response) {
                         if (_.get(response, 'body.success') == true) {
-                            this.getOwnCaloriesSettings();
+                            this.getOwnWorklogsSettings();
                         }
                     }).catch(function (response) {
                 if (_.get(response, 'body.success') == false) {
@@ -44726,8 +44726,8 @@ var defaultcaloriesSettingData = {
     
     
 
-    var defaultMealData = {
-        name: '', calories: '', time: '', user: {email: ''}
+    var defaultworklogData = {
+        name: '', worklogs: '', time: '', user: {email: ''}
     };
 
     var defaultSearchData = {
@@ -44738,12 +44738,12 @@ var defaultcaloriesSettingData = {
     /* harmony default export */ exports["default"] = {
         data: function data() {
             return {
-                meals: [],
+                worklogs: [],
                 modal: {
-                    meal: defaultMealData,
+                    worklog: defaultworklogData,
                     fields: {
                         name: 'Name',
-                        calories: 'Calories (kcal)',
+                        worklogs: 'Worklogs (kcal)',
                         time: 'Time',
                     },
                     errors: []
@@ -44767,7 +44767,7 @@ var defaultcaloriesSettingData = {
              */
             prepareComponent: function prepareComponent() {
 
-                this.getMeals();
+                this.getworklogs();
                 this.acl = __WEBPACK_IMPORTED_MODULE_0__auth_js__["a" /* default */].acl();
                 var that = this;
                 var originalDatePeriod = '';
@@ -44808,10 +44808,10 @@ var defaultcaloriesSettingData = {
             },
 
             /**
-             * Get all of the authorized tokens for the meal.
+             * Get all of the authorized tokens for the worklog.
              */
-            getMeals: function getMeals() {
-                var url = '/api/meals?with=user&withExceededCalories=1';
+            getworklogs: function getworklogs() {
+                var url = '/api/worklogs?with=user&withExceededWorklogs=1';
                 var df = _.get(this, 'search.date.from', false);
                 var dt = _.get(this, 'search.date.to', false);
                 var tf = _.get(this, 'search.time.from', false);
@@ -44831,41 +44831,41 @@ var defaultcaloriesSettingData = {
 
                 this.$http.get(url)
                         .then(function (response) {
-                            this.meals = response.data.data;
+                            this.worklogs = response.data.data;
                         });
             },
 
-            showAddMealModal: function showAddMealModal()
+            showAddworklogModal: function showAddworklogModal()
             {
-                this.modal.meal = defaultMealData;
-                $('#modal-edit-meal').modal('show');
+                this.modal.worklog = defaultworklogData;
+                $('#modal-edit-worklog').modal('show');
             },
             /**
              * Show the form for creating new clients.
              */
-            showEditMealModal: function showEditMealModal(meal) {
-                this.modal.meal = meal;
-                $('#modal-edit-meal').modal('show');
+            showEditworklogModal: function showEditworklogModal(worklog) {
+                this.modal.worklog = worklog;
+                $('#modal-edit-worklog').modal('show');
             },
 
-            showDeleteMealModal: function showDeleteMealModal(meal) {
-                this.modal.meal = meal;
-                $('#modal-delete-meal').modal('show');
+            showDeleteworklogModal: function showDeleteworklogModal(worklog) {
+                this.modal.worklog = worklog;
+                $('#modal-delete-worklog').modal('show');
             },
-            handleEditMealModalSave: function handleEditMealModalSave() {
+            handleEditworklogModalSave: function handleEditworklogModalSave() {
                 var method = 'post';
-                var url = '/api/meals';
-                var id = _.get(this, 'modal.meal.id', "");
+                var url = '/api/worklogs';
+                var id = _.get(this, 'modal.worklog.id', "");
                 console.log("ID: " + id);
                 if (id != "") {
                     method = 'put';
                     url += "/" + id;
                 }
 
-                this.$http[method](url, _.get(this, 'modal.meal'))
+                this.$http[method](url, _.get(this, 'modal.worklog'))
                         .then(function (response) {
                             if (_.get(response, 'body.success') == true) {
-                                this.getMeals();
+                                this.getworklogs();
                             }
                         }).catch(function (response) {
                     if (_.get(response, 'body.success') == false) {
@@ -44874,17 +44874,17 @@ var defaultcaloriesSettingData = {
                 });
             },
 
-            handleMealModalDelete: function handleMealModalDelete() {
-                var id = _.get(this, 'modal.meal.id');
-                this.$http.delete('api/meals/' + id)
+            handleworklogModalDelete: function handleworklogModalDelete() {
+                var id = _.get(this, 'modal.worklog.id');
+                this.$http.delete('api/worklogs/' + id)
                         .then(function (response) {
                             if (_.get(response, 'body.success') == true) {
-                                this.getMeals();
+                                this.getworklogs();
                             }
                         }).catch(function (response) {
                     if (_.get(response, 'body.success') == false) {
                         this.modal.errors = response.body.message;
-                        alert("Problem deleting meals.");
+                        alert("Problem deleting worklogs.");
                     }
                 });
             }
@@ -62916,7 +62916,7 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "/Users/michal/Development/Sites/michal-krakiewicz.public/resources/assets/js/components/CaloriesSettings.vue"
+__vue_options__.__file = "/Users/michal/Development/Sites/michal-krakiewicz.public/resources/assets/js/components/WorklogsSettings.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 
@@ -62932,7 +62932,7 @@ if (false) {(function () {
     hotAPI.reload("data-v-27e9e6be", __vue_options__)
   }
 })()}
-if (__vue_options__.functional) {console.error("[vue-loader] CaloriesSettings.vue: functional components are not supported and should be defined in plain js files using render functions.")}
+if (__vue_options__.functional) {console.error("[vue-loader] WorklogsSettings.vue: functional components are not supported and should be defined in plain js files using render functions.")}
 
 module.exports = __vue_exports__
 
@@ -63001,7 +63001,7 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "/Users/michal/Development/Sites/michal-krakiewicz.public/resources/assets/js/components/ListOfMeals.vue"
+__vue_options__.__file = "/Users/michal/Development/Sites/michal-krakiewicz.public/resources/assets/js/components/ListOfworklogs.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 
@@ -63017,7 +63017,7 @@ if (false) {(function () {
     hotAPI.reload("data-v-c04d3a5a", __vue_options__)
   }
 })()}
-if (__vue_options__.functional) {console.error("[vue-loader] ListOfMeals.vue: functional components are not supported and should be defined in plain js files using render functions.")}
+if (__vue_options__.functional) {console.error("[vue-loader] ListOfworklogs.vue: functional components are not supported and should be defined in plain js files using render functions.")}
 
 module.exports = __vue_exports__
 
@@ -63162,31 +63162,31 @@ module.exports = __vue_exports__
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('h2', [_vm._v("Calories Settings")]), _vm._v(" "), (_vm.acl.crud_all_user_settings) ? _c('p', [_vm._v("All users settings.")]) : _c('p', [_vm._v("Here you can set the amount of Calories per day.")]), _vm._v(" "), _c('table', [(_vm.acl.crud_all_user_settings) ? _c('tr', [_c('th', [_vm._v("User e-mail")]), _c('th', [_vm._v("Value")])]) : _vm._e(), _vm._v(" "), _vm._l((_vm.caloriesSettings), function(caloriesSetting) {
-    return _c('tr', [(_vm.acl.crud_all_user_settings) ? _c('td', [_vm._v("\n                " + _vm._s(caloriesSetting.email) + "\n            ")]) : _vm._e(), _vm._v(" "), _c('td', [_c('input', {
+  return _c('div', [_c('h2', [_vm._v("Worklogs Settings")]), _vm._v(" "), (_vm.acl.crud_all_user_settings) ? _c('p', [_vm._v("All users settings.")]) : _c('p', [_vm._v("Here you can set the amount of Worklogs per day.")]), _vm._v(" "), _c('table', [(_vm.acl.crud_all_user_settings) ? _c('tr', [_c('th', [_vm._v("User e-mail")]), _c('th', [_vm._v("Value")])]) : _vm._e(), _vm._v(" "), _vm._l((_vm.worklogsSettings), function(worklogsSetting) {
+    return _c('tr', [(_vm.acl.crud_all_user_settings) ? _c('td', [_vm._v("\n                " + _vm._s(worklogsSetting.email) + "\n            ")]) : _vm._e(), _vm._v(" "), _c('td', [_c('input', {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: (caloriesSetting.value),
-        expression: "caloriesSetting.value"
+        value: (worklogsSetting.value),
+        expression: "worklogsSetting.value"
       }],
       attrs: {
         "type": "text"
       },
       domProps: {
-        "value": (caloriesSetting.value)
+        "value": (worklogsSetting.value)
       },
       on: {
         "input": function($event) {
           if ($event.target.composing) { return; }
-          caloriesSetting.value = $event.target.value
+          worklogsSetting.value = $event.target.value
         }
       }
     })]), _vm._v(" "), _c('td', [_c('a', {
       staticClass: "btn btn-primary",
       on: {
         "click": function($event) {
-          _vm.saveCaloriesSetting(caloriesSetting)
+          _vm.saveWorklogsSetting(worklogsSetting)
         }
       }
     }, [_c('i', {
@@ -63274,7 +63274,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _vm._m(0)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('h2', [_vm._v("Welcome!")]), _vm._v(" "), _c('p', [_vm._v("Log in to view list of meals!")])])
+  return _c('div', [_c('h2', [_vm._v("Welcome!")]), _vm._v(" "), _c('p', [_vm._v("Log in to view list of worklogs!")])])
 }]}
 if (false) {
   module.hot.accept()
@@ -63292,15 +63292,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "app"
     }
-  }, [_c('h1', [_vm._v("Input Of Calories")]), _vm._v(" "), _c('ul', [(!_vm.loggedIn) ? _c('li', [_c('router-link', {
+  }, [_c('h1', [_vm._v("Input Of Worklogs")]), _vm._v(" "), _c('ul', [(!_vm.loggedIn) ? _c('li', [_c('router-link', {
     attrs: {
       "to": "/dashboard"
     }
-  }, [_vm._v("Dashboard")])], 1) : _vm._e(), _vm._v(" "), (_vm.loggedIn && _vm.acl.access_meals) ? _c('li', [_c('router-link', {
+  }, [_vm._v("Dashboard")])], 1) : _vm._e(), _vm._v(" "), (_vm.loggedIn && _vm.acl.access_worklogs) ? _c('li', [_c('router-link', {
     attrs: {
-      "to": "/list-of-meals"
+      "to": "/list-of-worklogs"
     }
-  }, [_vm._v("List of Meals")])], 1) : _vm._e(), _vm._v(" "), (_vm.loggedIn && _vm.acl.access_users) ? _c('li', [_c('router-link', {
+  }, [_vm._v("List of worklogs")])], 1) : _vm._e(), _vm._v(" "), (_vm.loggedIn && _vm.acl.access_users) ? _c('li', [_c('router-link', {
     attrs: {
       "to": "/users"
     }
@@ -63381,12 +63381,12 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     attrs: {
-      "id": "mealList"
+      "id": "worklogList"
     }
-  }, [_c('h2', [_vm._v("List of meals")]), _vm._v(" "), _c('p', [_vm._v("Yay you made it!")]), _vm._v(" "), _c('a', {
+  }, [_c('h2', [_vm._v("List of worklogs")]), _vm._v(" "), _c('p', [_vm._v("Yay you made it!")]), _vm._v(" "), _c('a', {
     staticClass: "btn btn-primary",
     on: {
-      "click": _vm.showAddMealModal
+      "click": _vm.showAddworklogModal
     }
   }, [_c('i', {
     staticClass: "fa fa-plus"
@@ -63503,29 +63503,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": "Filter"
     },
     on: {
-      "click": _vm.getMeals
+      "click": _vm.getworklogs
     }
   })])]), _vm._v(" "), _c('table', {
     staticClass: "table table-borderless m-b-none"
-  }, [_c('thead', [_c('tr', [(_vm.acl.crud_all_meals) ? _c('th', [_vm._v("User e-mail")]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v("Meal")]), _vm._v(" "), _c('th', [_vm._v("Calories (kcal)")]), _vm._v(" "), _c('th', [_vm._v("Time")]), _vm._v(" "), _c('th')])]), _vm._v(" "), _c('tbody', _vm._l((_vm.meals), function(meal) {
+  }, [_c('thead', [_c('tr', [(_vm.acl.crud_all_worklogs) ? _c('th', [_vm._v("User e-mail")]) : _vm._e(), _vm._v(" "), _c('th', [_vm._v("worklog")]), _vm._v(" "), _c('th', [_vm._v("Worklogs (kcal)")]), _vm._v(" "), _c('th', [_vm._v("Time")]), _vm._v(" "), _c('th')])]), _vm._v(" "), _c('tbody', _vm._l((_vm.worklogs), function(worklog) {
     return _c('tr', {
-      staticClass: "meal",
+      staticClass: "worklog",
       class: {
-        exceededCalories: meal.exceeded_calories
+        exceededWorklogs: worklog.exceeded_worklogs
       }
-    }, [(_vm.acl.crud_all_meals) ? _c('td', [_vm._v("\n                " + _vm._s(meal.user.email) + "\n            ")]) : _vm._e(), _vm._v(" "), _c('td', {
+    }, [(_vm.acl.crud_all_worklogs) ? _c('td', [_vm._v("\n                " + _vm._s(worklog.user.email) + "\n            ")]) : _vm._e(), _vm._v(" "), _c('td', {
       staticStyle: {
         "vertical-align": "middle"
       }
-    }, [_vm._v("\n                " + _vm._s(meal.name) + "\n            ")]), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n                " + _vm._s(worklog.name) + "\n            ")]), _vm._v(" "), _c('td', {
       staticStyle: {
         "vertical-align": "middle"
       }
-    }, [_vm._v("\n                " + _vm._s(meal.calories) + "\n            ")]), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n                " + _vm._s(worklog.worklogs) + "\n            ")]), _vm._v(" "), _c('td', {
       staticStyle: {
         "vertical-align": "middle"
       }
-    }, [_vm._v("\n                " + _vm._s(meal.time) + "\n            ")]), _vm._v(" "), _c('td', {
+    }, [_vm._v("\n                " + _vm._s(worklog.time) + "\n            ")]), _vm._v(" "), _c('td', {
       staticStyle: {
         "vertical-align": "middle"
       }
@@ -63535,7 +63535,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "btn btn-default",
       on: {
         "click": function($event) {
-          _vm.showEditMealModal(meal)
+          _vm.showEditworklogModal(worklog)
         }
       }
     }, [_c('i', {
@@ -63544,7 +63544,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "btn btn-danger",
       on: {
         "click": function($event) {
-          _vm.showDeleteMealModal(meal)
+          _vm.showDeleteworklogModal(worklog)
         }
       }
     }, [_c('i', {
@@ -63552,11 +63552,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" Delete")])])])])
   }))]), _vm._v(" "), _c('bootstrap-modal', {
     attrs: {
-      "id": "modal-edit-meal"
+      "id": "modal-edit-worklog"
     }
   }, [_c('div', {
     slot: "header"
-  }, [_vm._v("Edit meal")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Edit worklog")]), _vm._v(" "), _c('div', {
     slot: "content"
   }, [_c('form', {
     staticClass: "form-horizontal",
@@ -63577,8 +63577,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: (_vm.modal.meal[fieldIndex]),
-        expression: "modal.meal[fieldIndex]"
+        value: (_vm.modal.worklog[fieldIndex]),
+        expression: "modal.worklog[fieldIndex]"
       }],
       staticClass: "form-control",
       attrs: {
@@ -63587,20 +63587,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "required": ""
       },
       domProps: {
-        "value": (_vm.modal.meal[fieldIndex])
+        "value": (_vm.modal.worklog[fieldIndex])
       },
       on: {
         "input": function($event) {
           if ($event.target.composing) { return; }
-          _vm.$set(_vm.modal.meal, fieldIndex, $event.target.value)
+          _vm.$set(_vm.modal.worklog, fieldIndex, $event.target.value)
         }
       }
     }) : _c('input', {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: (_vm.modal.meal[fieldIndex]),
-        expression: "modal.meal[fieldIndex]"
+        value: (_vm.modal.worklog[fieldIndex]),
+        expression: "modal.worklog[fieldIndex]"
       }],
       staticClass: "form-control",
       attrs: {
@@ -63609,12 +63609,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "required": ""
       },
       domProps: {
-        "value": (_vm.modal.meal[fieldIndex])
+        "value": (_vm.modal.worklog[fieldIndex])
       },
       on: {
         "input": function($event) {
           if ($event.target.composing) { return; }
-          _vm.$set(_vm.modal.meal, fieldIndex, $event.target.value)
+          _vm.$set(_vm.modal.worklog, fieldIndex, $event.target.value)
         }
       }
     }), _vm._v(" "), (_vm.modal.errors[fieldIndex]) ? _c('span', {
@@ -63628,7 +63628,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "button"
     },
     on: {
-      "click": _vm.handleEditMealModalSave
+      "click": _vm.handleEditworklogModalSave
     }
   }, [_vm._v("\n                Save\n            ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-default",
@@ -63638,11 +63638,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Close")])])]), _vm._v(" "), _c('bootstrap-modal', {
     attrs: {
-      "id": "modal-delete-meal"
+      "id": "modal-delete-worklog"
     }
   }, [_c('div', {
     slot: "header"
-  }, [_vm._v("Delete meal")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Delete worklog")]), _vm._v(" "), _c('div', {
     slot: "content"
   }, [_c('p', [_vm._v("Are you sure?")])]), _vm._v(" "), _c('div', {
     slot: "footer"
@@ -63653,7 +63653,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-dismiss": "modal"
     },
     on: {
-      "click": _vm.handleMealModalDelete
+      "click": _vm.handleworklogModalDelete
     }
   }, [_vm._v("\n                Delete\n            ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-default",

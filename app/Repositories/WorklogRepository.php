@@ -2,17 +2,17 @@
 
 namespace App\Repositories;
 
-use App\Models\Meal;
+use App\Models\worklog;
 use InfyOm\Generator\Common\BaseRepository;
 
-class MealRepository extends BaseRepository
+class worklogRepository extends BaseRepository
 {
     /**
      * @var array
      */
     protected $fieldSearchable = [
         'name',
-        'calories',
+        'worklogs',
         'time',
         'user_id'
     ];
@@ -22,6 +22,6 @@ class MealRepository extends BaseRepository
      **/
     public function model()
     {
-        return Meal::class;
+        return worklog::class;
     }
 }

@@ -34,10 +34,10 @@ class CustomBearerTokenResponse extends BearerTokenResponse
         $user = $this->userRepository->find($id);
         return [
             'acl' => [
-                'access_meals' => $user->hasAccess([Role::ACCESS_MEALS]),
+                'access_worklogs' => $user->hasAccess([Role::ACCESS_worklogS]),
                 'access_users' => $user->hasAccess([Role::ACCESS_USERS]),
                 'access_user_settings' => $user->hasAccess([Role::ACCESS_USER_SETTINGS]),
-                'crud_all_meals' => $user->hasAccess([Role::CRUD_ALL_MEALS]),
+                'crud_all_worklogs' => $user->hasAccess([Role::CRUD_ALL_worklogS]),
                 'crud_all_user_settings' => $user->hasAccess([Role::CRUD_ALL_USER_SETTINGS]),
             ],
             'user' => $user->toArray()

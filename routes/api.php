@@ -45,29 +45,29 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     });
 
-    Route::group(['middleware' => ['can:access-meals']], function () {
+    Route::group(['middleware' => ['can:access-worklogs']], function () {
 
-        Route::get('meals', 'MealAPIController@index');
-        Route::post('meals', 'MealAPIController@store');
+        Route::get('worklogs', 'worklogAPIController@index');
+        Route::post('worklogs', 'worklogAPIController@store');
 
-        Route::group(['middleware' => ['can:modify-meals,meal']], function () {
+        Route::group(['middleware' => ['can:modify-worklogs,worklog']], function () {
 
-            Route::resource('meals', 'MealAPIController', ['except' => ['index','store']]);
+            Route::resource('worklogs', 'worklogAPIController', ['except' => ['index','store']]);
         });
     });
 
-    Route::get('users_calories_settings/usersOverview',
-        'UsersCaloriesSettingsAPIController@usersOverview')->middleware(['can:access-user-settings']);
+    Route::get('users_worklogs_settings/usersOverview',
+        'UsersWorklogsSettingsAPIController@usersOverview')->middleware(['can:access-user-settings']);
 
     Route::group(['middleware' => ['can:access-user-settings']], function () {
 
-        Route::get('users_calories_settings', 'UsersCaloriesSettingsAPIController@index');
-        Route::get('users_calories_settings', 'UsersCaloriesSettingsAPIController@store');
+        Route::get('users_worklogs_settings', 'UsersWorklogsSettingsAPIController@index');
+        Route::get('users_worklogs_settings', 'UsersWorklogsSettingsAPIController@store');
 
 
         Route::group(['middleware' => ['can:modify-user-settings']], function () {
 
-            Route::resource('users_calories_settings', 'UsersCaloriesSettingsAPIController', ['except' => ['index']]);
+            Route::resource('users_worklogs_settings', 'UsersWorklogsSettingsAPIController', ['except' => ['index']]);
 
         });
     });

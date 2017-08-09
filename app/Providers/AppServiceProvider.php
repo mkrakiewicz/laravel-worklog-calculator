@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Models\Meal;
+use App\Models\worklog;
 use App\Models\User;
-use App\Observers\MealObserver;
+use App\Observers\worklogObserver;
 use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;

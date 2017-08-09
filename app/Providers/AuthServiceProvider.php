@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Meal;
+use App\Models\worklog;
 use App\Models\Role;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -43,7 +43,7 @@ class AuthServiceProvider extends ServiceProvider
             'modify-user-settings' => function ($user) {
                 /* @var \App\Models\User $user */
                 return $user->hasAccess([Role::CRUD_ALL_USER_SETTINGS]) OR
-                ($user->hasAccess([Role::CRUD_OWN_USER_SETTINGS]));// and ($user->id == $userCaloriesSetting->user_id));
+                ($user->hasAccess([Role::CRUD_OWN_USER_SETTINGS]));// and ($user->id == $userWorklogsSetting->user_id));
             },
             'access-users' => function ($user) {
                 /* @var \App\Models\User $user */
@@ -53,15 +53,15 @@ class AuthServiceProvider extends ServiceProvider
                 /* @var \App\Models\User $user */
                 return $user->hasAccess([Role::CRUD_ALL_USERS]);
             },
-            'access-meals' => function ($user) {
+            'access-worklogs' => function ($user) {
                 /* @var \App\Models\User $user */
-                return $user->hasAccess([Role::ACCESS_MEALS]);
+                return $user->hasAccess([Role::ACCESS_worklogS]);
             },
-            'modify-meals' => function ($user, $mealId) {
-                $meal = Meal::findOrFail($mealId);
+            'modify-worklogs' => function ($user, $worklogId) {
+                $worklog = worklog::findOrFail($worklogId);
                 /* @var \App\Models\User $user */
-                return $user->hasAccess([Role::CRUD_ALL_MEALS]) OR
-                ($user->hasAccess([Role::CRUD_OWN_MEALS]) and ($user->id == $meal->user_id));
+                return $user->hasAccess([Role::CRUD_ALL_worklogS]) OR
+                ($user->hasAccess([Role::CRUD_OWN_worklogS]) and ($user->id == $worklog->user_id));
             },
         ];
 

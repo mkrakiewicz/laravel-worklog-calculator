@@ -1,26 +1,26 @@
 <template>
-    <div id="caloriesSettings">
-        <h2>Calories Settings</h2>
+    <div id="worklogsSettings">
+        <h2>Worklogs Settings</h2>
         <p v-if="acl.crud_all_user_settings">All users settings.</p>
-        <p v-else>Here you can set the amount of Calories per day.</p>
+        <p v-else>Here you can set the amount of Worklogs per day.</p>
         <table>
             <tr v-if="acl.crud_all_user_settings">
                 <th>User e-mail</th>
                 <th>Value</th>
             </tr>
-            <tr v-for="caloriesSetting in caloriesSettings">
+            <tr v-for="worklogsSetting in worklogsSettings">
                 <td v-if="acl.crud_all_user_settings">
-                    {{caloriesSetting.email}}
+                    {{worklogsSetting.email}}
                 </td>
                 <td>
-                    <input class="form-control" type="text" v-model="caloriesSetting.value"/>
+                    <input class="form-control" type="text" v-model="worklogsSetting.value"/>
                 </td>
                 <td>
-                    <a @click="saveCaloriesSetting(caloriesSetting)"
+                    <a @click="saveWorklogsSetting(worklogsSetting)"
                        class="btn btn-primary"> <i class="fa fa-save"></i> Save</a>
                 </td>
                 <td>
-                    <p v-if="errors[caloriesSetting.id]">{{errors[caloriesSetting.id].join()}}</p>
+                    <p v-if="errors[worklogsSetting.id]">{{errors[worklogsSetting.id].join()}}</p>
                 </td>
             </tr>
         </table>
@@ -32,13 +32,13 @@
     import flash from '../flash';
 
 
-    var defaultCaloriesSettingData = {
+    var defaultWorklogsSettingData = {
         name: '', email: '', password: '', password_confirmation: ''
     };
     export default {
         data() {
             return {
-                caloriesSettings: [],
+                worklogsSettings: [],
                 errors: [],
                 acl: {}
             };
@@ -53,40 +53,40 @@
 
             prepareComponent() {
                 this.acl = auth.acl();
-                this.getCaloriesSettings();
+                this.getWorklogsSettings();
 
             },
 
 
-            getCaloriesSettings() {
-                this.$http.get('/api/users_calories_settings/usersOverview')
+            getWorklogsSettings() {
+                this.$http.get('/api/users_worklogs_settings/usersOverview')
                         .then(function (response) {
-                            this.caloriesSettings = response.data.data;
+                            this.worklogsSettings = response.data.data;
                         });
             },
 
-            saveCaloriesSetting(caloriesSetting, errors) {
+            saveWorklogsSetting(worklogsSetting, errors) {
                 var method = 'post';
-                var url = '/api/users_calories_settings';
-                var id = _.get(caloriesSetting, 'id', "");
-//                console.log("ID: " + id + ", caloriesSetting: " + caloriesSetting);
+                var url = '/api/users_worklogs_settings';
+                var id = _.get(worklogsSetting, 'id', "");
+//                console.log("ID: " + id + ", worklogsSetting: " + worklogsSetting);
                 if (!!id) {
                     method = 'put';
                     url += "/" + id;
                 }
 
-                this.$http[method](url, caloriesSetting)
+                this.$http[method](url, worklogsSetting)
                         .then(function (response) {
                             if (_.get(response, 'body.success') == true) {
-                                this.getCaloriesSettings();
-                                Vue.set(this.errors, caloriesSetting.id, false);
+                                this.getWorklogsSettings();
+                                Vue.set(this.errors, worklogsSetting.id, false);
                                 flash.setMessage('Setting saved.')
                             }
                         }).catch(function (response) {
                     if (_.get(response, 'body.success') == false) {
                         var messageArr = _.get(response, 'body.message[value]',false);
                         if (messageArr) {
-                            Vue.set(this.errors, caloriesSetting.id, messageArr);
+                            Vue.set(this.errors, worklogsSetting.id, messageArr);
                         }
                     }
                 });

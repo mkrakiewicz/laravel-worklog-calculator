@@ -11132,30 +11132,30 @@ html #app #routerView, body #app #routerView {
   margin-top: 10px;
 }
 
-html #app #routerView #mealList #search div:last-child, body #app #routerView #mealList #search div:last-child {
+html #app #routerView #worklogList #search div:last-child, body #app #routerView #worklogList #search div:last-child {
   padding-left: 0;
 }
 
-html #app #routerView #mealList #search label, body #app #routerView #mealList #search label {
+html #app #routerView #worklogList #search label, body #app #routerView #worklogList #search label {
   white-space: nowrap;
   display: block;
 }
 
-html #app #routerView #mealList #search input, body #app #routerView #mealList #search input {
+html #app #routerView #worklogList #search input, body #app #routerView #worklogList #search input {
   -webkit-transform: translate(0);
   overflow: hidden;
 }
 
-html #app #routerView #mealList table tr.meal, body #app #routerView #mealList table tr.meal {
+html #app #routerView #worklogList table tr.worklog, body #app #routerView #worklogList table tr.worklog {
   background-color: rgba(0, 128, 0, 0.6);
 }
 
-html #app #routerView #mealList table tr.exceededCalories, body #app #routerView #mealList table tr.exceededCalories {
+html #app #routerView #worklogList table tr.exceededWorklogs, body #app #routerView #worklogList table tr.exceededWorklogs {
   background-color: rgba(255, 0, 0, 0.62);
   color: white;
 }
 
-html #app #routerView #caloriesSettings table tr td, body #app #routerView #caloriesSettings table tr td {
+html #app #routerView #worklogsSettings table tr td, body #app #routerView #worklogsSettings table tr td {
   padding: 2px;
 }
 

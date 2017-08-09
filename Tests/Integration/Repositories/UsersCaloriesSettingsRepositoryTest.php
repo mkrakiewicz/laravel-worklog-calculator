@@ -4,24 +4,24 @@ namespace Tests\Integration\Repositories;
 
 
 use App;
-use App\Models\UsersCaloriesSettings;
-use App\Repositories\UsersCaloriesSettingsRepository;
+use App\Models\UsersWorklogsSettings;
+use App\Repositories\UsersWorklogsSettingsRepository;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\ApiTestTrait;
 use Tests\TestCase;
 use Tests\Traits\MakeSettingTrait;
-use Tests\Traits\MakeUsersCaloriesSettingsTrait;
+use Tests\Traits\MakeUsersWorklogsSettingsTrait;
 use Tests\Traits\MakeUserTrait;
 
-class UsersCaloriesSettingsRepositoryTest extends TestCase
+class UsersWorklogsSettingsRepositoryTest extends TestCase
 {
-    use MakeUsersCaloriesSettingsTrait, MakeSettingTrait, MakeUserTrait, DatabaseMigrations;
+    use MakeUsersWorklogsSettingsTrait, MakeSettingTrait, MakeUserTrait, DatabaseMigrations;
 
     /**
-     * @var UsersCaloriesSettingsRepository
+     * @var UsersWorklogsSettingsRepository
      */
-    protected $usersCaloriesSettingsRepo;
+    protected $usersWorklogsSettingsRepo;
     private $settingRepo;
     private $userRepo;
     private $setting;
@@ -30,7 +30,7 @@ class UsersCaloriesSettingsRepositoryTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->usersCaloriesSettingsRepo = App::make(UsersCaloriesSettingsRepository::class);
+        $this->usersWorklogsSettingsRepo = App::make(UsersWorklogsSettingsRepository::class);
         /** @var App\Repositories\SettingRepository */
         $this->settingRepo = App::make(App\Repositories\SettingRepository::class);
         $this->setting = $this->settingRepo->create($this->fakeSettingData());
@@ -44,68 +44,68 @@ class UsersCaloriesSettingsRepositoryTest extends TestCase
     /**
      * @test create
      */
-    public function testCreateUsersCaloriesSettings()
+    public function testCreateUsersWorklogsSettings()
     {
-        $usersCaloriesSettings = $this->fakeUsersCaloriesSettingsData([
+        $usersWorklogsSettings = $this->fakeUsersWorklogsSettingsData([
             'user_id' => $this->user->id,
             'setting_id' => $this->setting->id
         ]);
-        $createdUsersCaloriesSettings = $this->usersCaloriesSettingsRepo->create($usersCaloriesSettings);
-        $createdUsersCaloriesSettings = $createdUsersCaloriesSettings->toArray();
-        $this->assertArrayHasKey('id', $createdUsersCaloriesSettings);
-        $this->assertNotNull($createdUsersCaloriesSettings['id'],
-            'Created UsersCaloriesSettings must have id specified');
-        $this->assertNotNull(UsersCaloriesSettings::find($createdUsersCaloriesSettings['id']),
-            'UsersCaloriesSettings with given id must be in DB');
-        $this->assertModelData($usersCaloriesSettings, $createdUsersCaloriesSettings);
+        $createdUsersWorklogsSettings = $this->usersWorklogsSettingsRepo->create($usersWorklogsSettings);
+        $createdUsersWorklogsSettings = $createdUsersWorklogsSettings->toArray();
+        $this->assertArrayHasKey('id', $createdUsersWorklogsSettings);
+        $this->assertNotNull($createdUsersWorklogsSettings['id'],
+            'Created UsersWorklogsSettings must have id specified');
+        $this->assertNotNull(UsersWorklogsSettings::find($createdUsersWorklogsSettings['id']),
+            'UsersWorklogsSettings with given id must be in DB');
+        $this->assertModelData($usersWorklogsSettings, $createdUsersWorklogsSettings);
     }
 
     /**
      * @test read
      */
-    public function testReadUsersCaloriesSettings()
+    public function testReadUsersWorklogsSettings()
     {
-        $usersCaloriesSettings = $this->makeUsersCaloriesSettings([
+        $usersWorklogsSettings = $this->makeUsersWorklogsSettings([
             'user_id' => $this->user->id,
             'setting_id' => $this->setting->id
         ]);
-        $dbUsersCaloriesSettings = $this->usersCaloriesSettingsRepo->find($usersCaloriesSettings->id);
-        $dbUsersCaloriesSettings = $dbUsersCaloriesSettings->toArray();
-        $this->assertModelData($usersCaloriesSettings->toArray(), $dbUsersCaloriesSettings);
+        $dbUsersWorklogsSettings = $this->usersWorklogsSettingsRepo->find($usersWorklogsSettings->id);
+        $dbUsersWorklogsSettings = $dbUsersWorklogsSettings->toArray();
+        $this->assertModelData($usersWorklogsSettings->toArray(), $dbUsersWorklogsSettings);
     }
 
     /**
      * @test update
      */
-    public function testUpdateUsersCaloriesSettings()
+    public function testUpdateUsersWorklogsSettings()
     {
-        $usersCaloriesSettings = $this->makeUsersCaloriesSettings([
+        $usersWorklogsSettings = $this->makeUsersWorklogsSettings([
             'user_id' => $this->user->id,
             'setting_id' => $this->setting->id
         ]);
-        $fakeUsersCaloriesSettings = $this->fakeUsersCaloriesSettingsData([
+        $fakeUsersWorklogsSettings = $this->fakeUsersWorklogsSettingsData([
             'user_id' => $this->user->id,
             'setting_id' => $this->setting->id
         ]);
-        $updatedUsersCaloriesSettings = $this->usersCaloriesSettingsRepo->update($fakeUsersCaloriesSettings,
-            $usersCaloriesSettings->id);
-        $this->assertModelData($fakeUsersCaloriesSettings, $updatedUsersCaloriesSettings->toArray());
-        $dbUsersCaloriesSettings = $this->usersCaloriesSettingsRepo->find($usersCaloriesSettings->id);
-        $this->assertModelData($fakeUsersCaloriesSettings, $dbUsersCaloriesSettings->toArray());
+        $updatedUsersWorklogsSettings = $this->usersWorklogsSettingsRepo->update($fakeUsersWorklogsSettings,
+            $usersWorklogsSettings->id);
+        $this->assertModelData($fakeUsersWorklogsSettings, $updatedUsersWorklogsSettings->toArray());
+        $dbUsersWorklogsSettings = $this->usersWorklogsSettingsRepo->find($usersWorklogsSettings->id);
+        $this->assertModelData($fakeUsersWorklogsSettings, $dbUsersWorklogsSettings->toArray());
     }
 
     /**
      * @test delete
      */
-    public function testDeleteUsersCaloriesSettings()
+    public function testDeleteUsersWorklogsSettings()
     {
-        $usersCaloriesSettings = $this->makeUsersCaloriesSettings([
+        $usersWorklogsSettings = $this->makeUsersWorklogsSettings([
             'user_id' => $this->user->id,
             'setting_id' => $this->setting->id
         ]);
-        $resp = $this->usersCaloriesSettingsRepo->delete($usersCaloriesSettings->id);
+        $resp = $this->usersWorklogsSettingsRepo->delete($usersWorklogsSettings->id);
         $this->assertTrue($resp);
-        $this->assertNull(UsersCaloriesSettings::find($usersCaloriesSettings->id),
-            'UsersCaloriesSettings should not exist in DB');
+        $this->assertNull(UsersWorklogsSettings::find($usersWorklogsSettings->id),
+            'UsersWorklogsSettings should not exist in DB');
     }
 }

@@ -4,13 +4,13 @@ use Illuminate\Database\Seeder;
 class SettingsSeeder extends Seeder
 {
 
-    public static $caloriesSetting;
+    public static $worklogsSetting;
 
     public function run()
     {
-        static::$caloriesSetting = \App\Models\Setting::create(
+        static::$worklogsSetting = \App\Models\Setting::create(
             [
-                'key' => 'caloriesPerDay'
+                'key' => 'worklogsPerDay'
             ]
         );
     }

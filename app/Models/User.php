@@ -21,7 +21,7 @@ use Laravel\Passport\HasApiTokens;
  * @property \Carbon\Carbon|null $updated_at
  * @property \Carbon\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Meal[] $meals
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\worklog[] $worklogs
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
@@ -130,9 +130,9 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function meals()
+    public function worklogs()
     {
-        return $this->hasMany(Meal::class);
+        return $this->hasMany(worklog::class);
     }
 
 }

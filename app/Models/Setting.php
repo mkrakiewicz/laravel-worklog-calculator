@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Setting extends Model
 {
-    const CALORIES_PER_DAY_SETTING = 'caloriesPerDay';
+    const WORKLOGS_PER_DAY_SETTING = 'worklogsPerDay';
 
     public $table = 'settings';
 
