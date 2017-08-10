@@ -5,26 +5,17 @@ class worklogsSeeder extends Seeder
 {
 
     public static $worklogList = [
-        'Asparagus',
-        'Apples',
-        'Bacon',
-        'Black beans',
-        'Cake',
-        'Carrots',
-        'French toast',
-        'Ham',
-        'Halibut',
-        'Lasagna',
-        'Meatballs',
-        'Spinach',
-        'Spaghetti',
-        'Waffles',
-        'Wine',
-        'Yogurt',
-        'Milkshake',
-        'Noodles',
-        'Ostrich',
-        'Pizza'
+        'Writing',
+        'Reading',
+        'Calling',
+        'Conference Call',
+        'Lunch break',
+        'Programming in PHP',
+        'Programming in C#',
+        'Estimating project',
+        'Consultations',
+        'Audit',
+        'Testing',
     ];
 
     public function run()
