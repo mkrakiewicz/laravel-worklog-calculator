@@ -1,0 +1,21 @@
+﻿<!-- header -->
+<header>
+    <ul class="nav nav-tabs">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a routerLink="/">Home</a></li>
+        <li routerLinkActive="active"><a routerLink="/products">Products</a></li>
+    </ul>
+</header>
+
+<main>
+    <router-outlet></router-outlet>
+</main>
+
+<!-- footer -->
+<footer>
+    <p>
+        <a href="http://jasonwatmore.com/post/2017/04/19/angular-2-4-router-animation-tutorial-example">Angular 2/4 - Router Animation Tutorial & Example</a>
+    </p>
+    <p>
+        <a href="http://jasonwatmore.com">JasonWatmore.com</a>
+    </p>
+</footer>
