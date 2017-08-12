@@ -37,6 +37,7 @@
     },
     "scripts": {
         "pre-install-cmd": [
+            "mkdir -p vendor/",
             "chmod -R 777 vendor/"
         ],
         "post-root-package-install": [
