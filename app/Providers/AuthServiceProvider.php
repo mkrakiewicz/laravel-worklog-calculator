@@ -29,11 +29,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-//        Route::group(['prefix' => 'api', 'middleware' => 'cors'], function() {
+        Route::group(['prefix' => 'api'], function() {
 
             Passport::routes();
 
-//        });
+        });
         Passport::routes();
 
         $this->registerPostPolicies();

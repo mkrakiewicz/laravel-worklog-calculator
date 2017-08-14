@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Database\Seeder;
 
-class worklogsSeeder extends Seeder
+class WorklogsSeeder extends Seeder
 {
 
     public static $worklogList = [

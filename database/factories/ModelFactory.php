@@ -24,7 +24,7 @@ $factory->define(\App\Models\worklog::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->randomElement(worklogsSeeder::$worklogList),
         'time' => $faker->dateTimeBetween('-2 months'),
-        'worklogs' => $faker->numberBetween(125, 500),
+        'minutes' => $faker->numberBetween(15, 360),
         'user_id' => $faker->randomDigit
     ];
 });
