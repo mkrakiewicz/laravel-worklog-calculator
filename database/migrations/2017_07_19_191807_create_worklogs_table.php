@@ -20,7 +20,7 @@ class CreateworklogsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('name');
-            $table->integer('worklogs');
+            $table->integer('minutes');
             $table->dateTime('time');
             $table->timestamps();
             $table->softDeletes();
