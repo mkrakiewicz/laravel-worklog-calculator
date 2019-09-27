@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\Role;
 use Illuminate\Database\Seeder;
 
@@ -13,11 +14,11 @@ class RolesSeeder extends Seeder
                 'name' => 'User',
                 'slug' => 'user',
                 'permissions' => [
-                    Role::ACCESS_worklogS => true,
-                    Role::CRUD_OWN_worklogS => true,
+                    Role::ACCESS_ACTIVITIES => true,
+                    Role::CRUD_OWN_ACTIVITIES => true,
                     Role::ACCESS_USER_SETTINGS => true,
-                    Role::CRUD_OWN_USER_SETTINGS => true
-                ]
+                    Role::CRUD_OWN_USER_SETTINGS => true,
+                ],
             ]
         );
 
@@ -30,7 +31,7 @@ class RolesSeeder extends Seeder
                     Role::CRUD_ALL_USERS => true,
                     Role::ACCESS_ROLE_USERS => true,
                     Role::CRUD_ROLE_USERS => true,
-                ]
+                ],
             ]
         );
 
@@ -39,9 +40,9 @@ class RolesSeeder extends Seeder
                 'name' => 'Admin',
                 'slug' => 'admin',
                 'permissions' => [
-                    Role::CRUD_ALL_worklogS => true,
+                    Role::CRUD_ALL_ACTIVITIES => true,
                     Role::CRUD_ALL_USER_SETTINGS => true,
-                ]
+                ],
             ]
         );
     }

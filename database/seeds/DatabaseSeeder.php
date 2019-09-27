@@ -5,8 +5,6 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
-     *
      * @return void
      */
     public function run()
@@ -16,9 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersSeeder::class);
 
         $this->call(SettingsSeeder::class);
-        $this->call(UserWorklogsSettingsSeeder::class);
+        $this->call(UserActivitiesSettingsSeeder::class);
 
-        $this->call(worklogsSeeder::class);
-
+        $this->call(ActivitiesSeeder::class);
     }
 }

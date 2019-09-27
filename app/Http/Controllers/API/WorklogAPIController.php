@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateworklogAPIRequest;
-use App\Http\Requests\API\UpdateworklogAPIRequest;
-use App\Models\worklog;
+use App\Http\Requests\API\CreateactivityAPIRequest;
+use App\Http\Requests\API\UpdateactivityAPIRequest;
+use App\Models\Activity;
 use App\Models\Role;
 use App\Models\User;
-use App\Repositories\Criteria\worklogDateTimeCriteria;
-use App\Repositories\Criteria\worklogExceededWorklogsCriteria;
-use App\Repositories\worklogRepository;
+use App\Repositories\Criteria\ActivityDateTimeCriteria;
+use App\Repositories\Criteria\ActivityExceededActivitiesCriteria;
+use App\Repositories\ActivityRepository;
 use Auth;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Auth\SessionGuard;
@@ -20,71 +20,71 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class worklogController
+ * Class activityController
  * @package App\Http\Controllers\API
  */
-class worklogAPIController extends AppBaseController
+class activityAPIController extends AppBaseController
 {
-    /** @var  worklogRepository */
-    private $worklogRepository;
+    /** @var  ActivityRepository */
+    private $activityRepository;
 
     /**
      * @var SessionGuard
      */
     private $auth;
 
-    public function __construct(worklogRepository $worklogRepo, AuthManager $auth )
+    public function __construct(ActivityRepository $activityRepo, AuthManager $auth )
     {
-        $this->worklogRepository = $worklogRepo;
+        $this->activityRepository = $activityRepo;
         $this->auth = $auth;
     }
 
     /**
-     * Display a listing of the worklog.
-     * GET|HEAD /worklogs
+     * Display a listing of the activity.
+     * GET|HEAD /activities
      *
      * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
-        if ($this->getAuthUser()->hasAccess([Role::CRUD_ALL_worklogS]) == false) {
+        if ($this->getAuthUser()->hasAccess([Role::CRUD_ALL_ACTIVITIES]) == false) {
             $id = $this->auth->id();
             $request['search'] = "user_id:$id";
         }
-        $this->worklogRepository->pushCriteria(new worklogDateTimeCriteria($request));
-        $this->worklogRepository->pushCriteria(new worklogExceededWorklogsCriteria($request));
-        $this->worklogRepository->pushCriteria(new RequestCriteria($request));
-        $this->worklogRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->activityRepository->pushCriteria(new ActivityDateTimeCriteria($request));
+        $this->activityRepository->pushCriteria(new ActivityExceededActivitiesCriteria($request));
+        $this->activityRepository->pushCriteria(new RequestCriteria($request));
+        $this->activityRepository->pushCriteria(new LimitOffsetCriteria($request));
 
-        $worklogs = $this->worklogRepository->all();
+        $activities = $this->activityRepository->all();
 
-        return $this->sendResponse($worklogs->toArray(), 'worklogs retrieved successfully');
+        return $this->sendResponse($activities->toArray(), 'activities retrieved successfully');
     }
 
     /**
-     * Store a newly created worklog in storage.
-     * POST /worklogs
+     * Store a newly created activity in storage.
+     * POST /activities
      *
-     * @param CreateworklogAPIRequest $request
+     * @param CreateactivityAPIRequest $request
      *
      * @return Response
      */
-    public function store(CreateworklogAPIRequest $request)
+    public function store(CreateactivityAPIRequest $request)
     {
-        if (empty($request['user_id']) || ($this->getAuthUser()->hasAccess([Role::CRUD_ALL_worklogS]) == false)) {
+        if (empty($request['user_id']) || ($this->getAuthUser()->hasAccess([Role::CRUD_ALL_ACTIVITIES]) == false)) {
             $request['user_id'] = $this->auth->id();
         }
         $input = $request->all();
 
-        $worklogs = $this->worklogRepository->create($input);
+        $activities = $this->activityRepository->create($input);
 
-        return $this->sendResponse($worklogs->toArray(), 'worklog saved successfully');
+        return $this->sendResponse($activities->toArray(), 'activity saved successfully');
     }
 
     /**
-     * Display the specified worklog.
-     * GET|HEAD /worklogs/{id}
+     * Display the specified activity.
+     * GET|HEAD /activities/{id}
      *
      * @param  int $id
      *
@@ -92,48 +92,48 @@ class worklogAPIController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var worklog $worklog */
-        $worklog = $this->worklogRepository->findWithoutFail($id);
+        /** @var Activity $activity */
+        $activity = $this->activityRepository->findWithoutFail($id);
 
-        if (empty($worklog)) {
-            return $this->sendError('worklog not found');
+        if (empty($activity)) {
+            return $this->sendError('activity not found');
         }
 
-        return $this->sendResponse($worklog->toArray(), 'worklog retrieved successfully');
+        return $this->sendResponse($activity->toArray(), 'activity retrieved successfully');
     }
 
     /**
-     * Update the specified worklog in storage.
-     * PUT/PATCH /worklogs/{id}
+     * Update the specified activity in storage.
+     * PUT/PATCH /activities/{id}
      *
      * @param  int $id
-     * @param UpdateworklogAPIRequest $request
+     * @param UpdateactivityAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateworklogAPIRequest $request)
+    public function update($id, UpdateactivityAPIRequest $request)
     {
-        if ($this->getAuthUser()->hasAccess([Role::CRUD_ALL_worklogS]) == false) {
+        if ($this->getAuthUser()->hasAccess([Role::CRUD_ALL_ACTIVITIES]) == false) {
             $request['user_id'] = $this->auth->id();
         }
 
         $input = $request->all();
 
-        /** @var worklog $worklog */
-        $worklog = $this->worklogRepository->findWithoutFail($id);
+        /** @var Activity $activity */
+        $activity = $this->activityRepository->findWithoutFail($id);
 
-        if (empty($worklog)) {
-            return $this->sendError('worklog not found');
+        if (empty($activity)) {
+            return $this->sendError('activity not found');
         }
 
-        $worklog = $this->worklogRepository->update($input, $id);
+        $activity = $this->activityRepository->update($input, $id);
 
-        return $this->sendResponse($worklog->toArray(), 'worklog updated successfully');
+        return $this->sendResponse($activity->toArray(), 'activity updated successfully');
     }
 
     /**
-     * Remove the specified worklog from storage.
-     * DELETE /worklogs/{id}
+     * Remove the specified activity from storage.
+     * DELETE /activities/{id}
      *
      * @param  int $id
      *
@@ -141,16 +141,16 @@ class worklogAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        /** @var worklog $worklog */
-        $worklog = $this->worklogRepository->findWithoutFail($id);
+        /** @var Activity $activity */
+        $activity = $this->activityRepository->findWithoutFail($id);
 
-        if (empty($worklog)) {
-            return $this->sendError('worklog not found');
+        if (empty($activity)) {
+            return $this->sendError('activity not found');
         }
 
-        $worklog->delete();
+        $activity->delete();
 
-        return $this->sendResponse($id, 'worklog deleted successfully');
+        return $this->sendResponse($id, 'activity deleted successfully');
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\worklog;
+use App\Models\Activity;
 use App\Models\Role;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -50,7 +50,7 @@ class AuthServiceProvider extends ServiceProvider
             'modify-user-settings' => function ($user) {
                 /* @var \App\Models\User $user */
                 return $user->hasAccess([Role::CRUD_ALL_USER_SETTINGS]) OR
-                ($user->hasAccess([Role::CRUD_OWN_USER_SETTINGS]));// and ($user->id == $userWorklogsSetting->user_id));
+                ($user->hasAccess([Role::CRUD_OWN_USER_SETTINGS]));// and ($user->id == $userActivitiesSetting->user_id));
             },
             'access-users' => function ($user) {
                 /* @var \App\Models\User $user */
@@ -60,15 +60,15 @@ class AuthServiceProvider extends ServiceProvider
                 /* @var \App\Models\User $user */
                 return $user->hasAccess([Role::CRUD_ALL_USERS]);
             },
-            'access-worklogs' => function ($user) {
+            'access-activities' => function ($user) {
                 /* @var \App\Models\User $user */
-                return $user->hasAccess([Role::ACCESS_worklogS]);
+                return $user->hasAccess([Role::ACCESS_ACTIVITIES]);
             },
-            'modify-worklogs' => function ($user, $worklogId) {
-                $worklog = worklog::findOrFail($worklogId);
+            'modify-activities' => function ($user, $activityId) {
+                $activity = Activity::findOrFail($activityId);
                 /* @var \App\Models\User $user */
-                return $user->hasAccess([Role::CRUD_ALL_worklogS]) OR
-                ($user->hasAccess([Role::CRUD_OWN_worklogS]) and ($user->id == $worklog->user_id));
+                return $user->hasAccess([Role::CRUD_ALL_ACTIVITIES]) OR
+                ($user->hasAccess([Role::CRUD_OWN_ACTIVITIES]) and ($user->id == $activity->user_id));
             },
         ];
 

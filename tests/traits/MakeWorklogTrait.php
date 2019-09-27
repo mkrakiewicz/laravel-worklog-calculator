@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Traits; 
+namespace tests\Traits;
 
 use App;
 use Faker\Factory as Faker;
-use App\Models\worklog;
+use App\Models\Activity;
 use App\Repositories\worklogRepository;
 
 trait MakeworklogTrait
@@ -13,7 +13,7 @@ trait MakeworklogTrait
      * Create fake instance of worklog and save it in database
      *
      * @param array $worklogFields
-     * @return worklog
+     * @return Activity
      */
     public function makeworklog($worklogFields = [])
     {
@@ -27,11 +27,11 @@ trait MakeworklogTrait
      * Get fake instance of worklog
      *
      * @param array $worklogFields
-     * @return worklog
+     * @return Activity
      */
     public function fakeworklog($worklogFields = [])
     {
-        return new worklog($this->fakeworklogData($worklogFields));
+        return new Activity($this->fakeworklogData($worklogFields));
     }
 
     /**

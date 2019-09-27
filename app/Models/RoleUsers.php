@@ -5,25 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * Class RoleUsers
- *
- * @package App\Models
- * @version July 21, 2017, 2:47 pm UTC
- * @property int $id
- * @property int $user_id
- * @property int $role_id
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property-read \App\Models\Role $role
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RoleUsers whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RoleUsers whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RoleUsers whereRoleId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RoleUsers whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RoleUsers whereUserId($value)
- * @mixin \Eloquent
- */
 class RoleUsers extends Model
 {
     public $table = 'role_users';

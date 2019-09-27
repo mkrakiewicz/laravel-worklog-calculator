@@ -5,31 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * Class Role
- *
- * @package App\Models
- * @version July 21, 2017, 2:46 pm UTC
- * @property int $id
- * @property string $name
- * @property string $slug
- * @property array $permissions
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role wherePermissions($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereUpdatedAt($value)
- * @mixin \Eloquent
- */
 class Role extends Model
 {
-    const ACCESS_worklogS = 'access-worklogs';
-    const CRUD_OWN_worklogS = 'crud-own-worklogs';
-    const CRUD_ALL_worklogS = 'crud-all-worklogs';
+    const ACCESS_ACTIVITIES = 'access-activities';
+    const CRUD_OWN_ACTIVITIES = 'crud-own-activities';
+    const CRUD_ALL_ACTIVITIES = 'crud-all-activities';
 
 
     const ACCESS_USER_SETTINGS = 'access-user-settings';

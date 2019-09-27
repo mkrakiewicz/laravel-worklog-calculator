@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Models\worklog;
+use App\Models\Activity;
 use App\Models\User;
-use App\Observers\worklogObserver;
+use App\Observers\activityObserver;
 use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;

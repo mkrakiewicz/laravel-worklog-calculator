@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\worklog;
+use App\Models\Activity;
 
-class CreateworklogAPIRequest extends APIRequest
+class CreateactivityAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,6 +23,6 @@ class CreateworklogAPIRequest extends APIRequest
      */
     public function rules()
     {
-        return worklog::$rules;
+        return Activity::$rules;
     }
 }

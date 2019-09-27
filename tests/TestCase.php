@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace tests;
 
 abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {

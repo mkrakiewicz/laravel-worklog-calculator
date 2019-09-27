@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateUsersWorklogsSettingsAPIRequest;
-use App\Http\Requests\API\UpdateUsersWorklogsSettingsAPIRequest;
+use App\Http\Requests\API\CreateUsersActivitiesSettingsAPIRequest;
+use App\Http\Requests\API\UpdateUsersActivitiesSettingsAPIRequest;
 use App\Models\Role;
-use App\Models\UsersWorklogsSettings;
-use App\Repositories\UsersWorklogsSettingsRepository;
+use App\Models\UsersActivitiesSettings;
+use App\Repositories\UsersActivitiesSettingsRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Support\Facades\Auth;
@@ -15,23 +15,23 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
 /**
- * Class UsersWorklogsSettingsController
+ * Class UsersActivitiesSettingsController
  * @package App\Http\Controllers\API
  */
-class UsersWorklogsSettingsAPIController extends AppBaseController
+class UsersActivitiesSettingsAPIController extends AppBaseController
 {
-    /** @var  UsersWorklogsSettingsRepository */
-    private $usersWorklogsSettingsRepository;
+    /** @var  UsersActivitiesSettingsRepository */
+    private $usersActivitiesSettingsRepository;
 
-    public function __construct(UsersWorklogsSettingsRepository $usersWorklogsSettingsRepo)
+    public function __construct(UsersActivitiesSettingsRepository $usersActivitiesSettingsRepo)
     {
-        $this->usersWorklogsSettingsRepository = $usersWorklogsSettingsRepo;
+        $this->usersActivitiesSettingsRepository = $usersActivitiesSettingsRepo;
     }
 
 
     public function usersOverview()
     {
-        $result = $this->usersWorklogsSettingsRepository->crossJoinSettingsWithUsers(
+        $result = $this->usersActivitiesSettingsRepository->crossJoinSettingsWithUsers(
             Auth::user()->hasAccess([Role::CRUD_ALL_USER_SETTINGS])
         );
 
@@ -39,41 +39,41 @@ class UsersWorklogsSettingsAPIController extends AppBaseController
     }
 
     /**
-     * Display a listing of the UsersWorklogsSettings.
-     * GET|HEAD /usersWorklogsSettings
+     * Display a listing of the UsersActivitiesSettings.
+     * GET|HEAD /usersActivitiesSettings
      *
      * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
-        $this->usersWorklogsSettingsRepository->pushCriteria(new RequestCriteria($request));
-        $this->usersWorklogsSettingsRepository->pushCriteria(new LimitOffsetCriteria($request));
-        $usersWorklogsSettings = $this->usersWorklogsSettingsRepository->all();
+        $this->usersActivitiesSettingsRepository->pushCriteria(new RequestCriteria($request));
+        $this->usersActivitiesSettingsRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $usersActivitiesSettings = $this->usersActivitiesSettingsRepository->all();
 
-        return $this->sendResponse($usersWorklogsSettings->toArray(), 'Users Worklogs Settings retrieved successfully');
+        return $this->sendResponse($usersActivitiesSettings->toArray(), 'Users Activities Settings retrieved successfully');
     }
 
     /**
-     * Store a newly created UsersWorklogsSettings in storage.
-     * POST /usersWorklogsSettings
+     * Store a newly created UsersActivitiesSettings in storage.
+     * POST /usersActivitiesSettings
      *
-     * @param CreateUsersWorklogsSettingsAPIRequest $request
+     * @param CreateUsersActivitiesSettingsAPIRequest $request
      *
      * @return Response
      */
-    public function store(CreateUsersWorklogsSettingsAPIRequest $request)
+    public function store(CreateUsersActivitiesSettingsAPIRequest $request)
     {
         $input = $request->all();
 
-        $usersWorklogsSettings = $this->usersWorklogsSettingsRepository->create($input);
+        $usersActivitiesSettings = $this->usersActivitiesSettingsRepository->create($input);
 
-        return $this->sendResponse($usersWorklogsSettings->toArray(), 'Users Worklogs Settings saved successfully');
+        return $this->sendResponse($usersActivitiesSettings->toArray(), 'Users Activities Settings saved successfully');
     }
 
     /**
-     * Display the specified UsersWorklogsSettings.
-     * GET|HEAD /usersWorklogsSettings/{id}
+     * Display the specified UsersActivitiesSettings.
+     * GET|HEAD /usersActivitiesSettings/{id}
      *
      * @param  int $id
      *
@@ -81,44 +81,44 @@ class UsersWorklogsSettingsAPIController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var UsersWorklogsSettings $usersWorklogsSettings */
-        $usersWorklogsSettings = $this->usersWorklogsSettingsRepository->findWithoutFail($id);
+        /** @var UsersActivitiesSettings $usersActivitiesSettings */
+        $usersActivitiesSettings = $this->usersActivitiesSettingsRepository->findWithoutFail($id);
 
-        if (empty($usersWorklogsSettings)) {
-            return $this->sendError('Users Worklogs Settings not found');
+        if (empty($usersActivitiesSettings)) {
+            return $this->sendError('Users Activities Settings not found');
         }
 
-        return $this->sendResponse($usersWorklogsSettings->toArray(), 'Users Worklogs Settings retrieved successfully');
+        return $this->sendResponse($usersActivitiesSettings->toArray(), 'Users Activities Settings retrieved successfully');
     }
 
     /**
-     * Update the specified UsersWorklogsSettings in storage.
-     * PUT/PATCH /usersWorklogsSettings/{id}
+     * Update the specified UsersActivitiesSettings in storage.
+     * PUT/PATCH /usersActivitiesSettings/{id}
      *
      * @param  int $id
-     * @param UpdateUsersWorklogsSettingsAPIRequest $request
+     * @param UpdateUsersActivitiesSettingsAPIRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateUsersWorklogsSettingsAPIRequest $request)
+    public function update($id, UpdateUsersActivitiesSettingsAPIRequest $request)
     {
         $input = $request->all();
 
-        /** @var UsersWorklogsSettings $usersWorklogsSettings */
-        $usersWorklogsSettings = $this->usersWorklogsSettingsRepository->findWithoutFail($id);
+        /** @var UsersActivitiesSettings $usersActivitiesSettings */
+        $usersActivitiesSettings = $this->usersActivitiesSettingsRepository->findWithoutFail($id);
 
-        if (empty($usersWorklogsSettings)) {
-            return $this->sendError('Users Worklogs Settings not found');
+        if (empty($usersActivitiesSettings)) {
+            return $this->sendError('Users Activities Settings not found');
         }
 
-        $usersWorklogsSettings = $this->usersWorklogsSettingsRepository->update($input, $id);
+        $usersActivitiesSettings = $this->usersActivitiesSettingsRepository->update($input, $id);
 
-        return $this->sendResponse($usersWorklogsSettings->toArray(), 'UsersWorklogsSettings updated successfully');
+        return $this->sendResponse($usersActivitiesSettings->toArray(), 'UsersActivitiesSettings updated successfully');
     }
 
     /**
-     * Remove the specified UsersWorklogsSettings from storage.
-     * DELETE /usersWorklogsSettings/{id}
+     * Remove the specified UsersActivitiesSettings from storage.
+     * DELETE /usersActivitiesSettings/{id}
      *
      * @param  int $id
      *
@@ -126,15 +126,15 @@ class UsersWorklogsSettingsAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        /** @var UsersWorklogsSettings $usersWorklogsSettings */
-        $usersWorklogsSettings = $this->usersWorklogsSettingsRepository->findWithoutFail($id);
+        /** @var UsersActivitiesSettings $usersActivitiesSettings */
+        $usersActivitiesSettings = $this->usersActivitiesSettingsRepository->findWithoutFail($id);
 
-        if (empty($usersWorklogsSettings)) {
-            return $this->sendError('Users Worklogs Settings not found');
+        if (empty($usersActivitiesSettings)) {
+            return $this->sendError('Users Activities Settings not found');
         }
 
-        $usersWorklogsSettings->delete();
+        $usersActivitiesSettings->delete();
 
-        return $this->sendResponse($id, 'Users Worklogs Settings deleted successfully');
+        return $this->sendResponse($id, 'Users Activities Settings deleted successfully');
     }
 }

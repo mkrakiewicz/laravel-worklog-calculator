@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Traits;
+namespace tests\Traits;
 
 
 use App;

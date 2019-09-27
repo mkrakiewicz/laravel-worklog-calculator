@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\API;
 
-use App\Models\worklog;
+use App\Models\Activity;
 
 
-class UpdateworklogAPIRequest extends APIRequest
+class UpdateactivityAPIRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,6 +24,6 @@ class UpdateworklogAPIRequest extends APIRequest
      */
     public function rules()
     {
-        return worklog::$rules;
+        return Activity::$rules;
     }
 }
